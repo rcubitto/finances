@@ -29,6 +29,7 @@
           <DollarIcon />
           <input
             id="income"
+            ref="income"
             v-model.number="income"
             autofocus
             class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
@@ -336,6 +337,26 @@ export default {
       .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")
       .then(({ data: { libre } }) => (this.dollar = libre))
       .catch(err => console.error(err)); // TODO: show input error
+
+    document.addEventListener("keyup", e => {
+      switch (e.key) {
+        case "/":
+          this.$refs.income.focus();
+          break;
+        case "m":
+          this.range = "monthly";
+          break;
+        case "y":
+          this.range = "yearly";
+          break;
+        case "g":
+          this.margin = "gross";
+          break;
+        case "n":
+          this.margin = "net";
+          break;
+      }
+    });
   },
   methods: {
     yearly(amount) {
