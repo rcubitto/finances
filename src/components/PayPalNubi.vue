@@ -8,12 +8,17 @@
         >
           ARS/USD
         </label>
-        <input
-          id="dollar"
-          v-model="dollar"
-          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          type="text"
-        >
+        <div class="flex items-center">
+          <span class="-mr-5 z-10 text-grey-dark">
+            $
+          </span>
+          <input
+            id="dollar"
+            v-model="dollar"
+            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-6 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            type="number"
+          >
+        </div>
       </div>
       <div class="flex-1 mr-6">
         <label
@@ -22,12 +27,17 @@
         >
           Income [U$S]
         </label>
-        <input
-          id="income"
-          v-model="income"
-          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          type="text"
-        >
+        <div class="flex items-center">
+          <span class="-mr-5 z-10 text-grey-dark">
+            $
+          </span>
+          <input
+            id="income"
+            v-model="income"
+            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-6 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            type="number"
+          >
+        </div>
       </div>
       <div class="flex flex-col justify-end pb-1 mr-6">
         <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
