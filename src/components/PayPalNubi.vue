@@ -8,15 +8,22 @@
         >
           ARS/USD
         </label>
-        <div class="flex relative">
+        <div class="relative">
           <DollarIcon />
           <input
             id="dollar"
             v-model.number="dollar"
             class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            :class="{ 'border-red': dollarHasErrors && ! dollar }"
             type="number"
           >
         </div>
+        <p
+          v-if="dollarHasErrors && ! dollar"
+          class="text-red text-xs italic mt-1"
+        >
+          An error has occurred, please fill this field manually.
+        </p>
       </div>
       <div class="flex-1 mr-6">
         <label
@@ -37,7 +44,7 @@
           >
         </div>
       </div>
-      <div class="flex flex-col justify-end pb-1 mr-6">
+      <div class="flex flex-col justify-center mr-6">
         <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
           <input
             v-model="range"
@@ -55,7 +62,7 @@
           >Yearly
         </label>
       </div>
-      <div class="flex flex-col justify-end pb-1">
+      <div class="flex flex-col justify-center">
         <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
           <input
             v-model="margin"
@@ -267,6 +274,7 @@ export default {
   data() {
     return {
       dollar: null,
+      dollarHasErrors: false,
       income: null,
       range: "monthly",
       margin: "gross",
@@ -336,7 +344,7 @@ export default {
     axios
       .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")
       .then(({ data: { libre } }) => (this.dollar = libre))
-      .catch(err => console.error(err)); // TODO: show input error
+      .catch(() => (this.dollarHasErrors = true)); // TODO: show input error
 
     document.addEventListener("keyup", e => {
       switch (e.key) {
