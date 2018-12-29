@@ -141,7 +141,7 @@
                 {{ formatter.format(toArs(nubiDiscount)) }}
               </td>
             </tr>
-            <tr class="text-grey-darkest">
+            <tr class="text-grey-darkest font-bold">
               <td class="p-4">
                 Net
               </td>
