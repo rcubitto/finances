@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto pt-6">
-    <div class="mb-4 flex">
+    <div class="mb-6 flex">
       <div class="flex-1 mr-6">
         <label
           class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -25,7 +25,7 @@
           class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
           for="income"
         >
-          Income [U$S]
+          Income [U$D]
         </label>
         <div class="flex items-center">
           <span class="-mr-5 z-10 text-grey-dark">
@@ -78,95 +78,125 @@
     </div>
     <div
       v-if="income && dollar"
-      class="flex"
+      class="flex border-grey-lighter border-t-2 pt-6"
     >
-      <div class="flex-1">
-        <table>
+      <div class="flex-1 mr-16 rounded overflow-hidden shadow">
+        <table class="w-full">
           <thead>
-            <tr>
-              <th>Monthly</th>
-              <th>USD</th>
-              <th>ARS ~ ${{ dollar }}</th>
+            <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
+              <th class="p-4">Monthly</th>
+              <th class="p-4">U$D</th>
+              <th class="p-4">AR$</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Gross</td>
-              <td>{{ gross }}</td>
-              <td>{{ toArs(gross) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">Gross</td>
+              <td class="text-right p-4">
+                {{ gross }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(gross) }}
+              </td>
             </tr>
-            <tr>
-              <td>PayPal Fee</td>
-              <td>{{ payPalDiscount }}</td>
-              <td>{{ toArs(payPalDiscount) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">PayPal Fee</td>
+              <td class="text-right p-4">
+                {{ payPalDiscount }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(payPalDiscount) }}
+              </td>
             </tr>
-            <tr>
-              <td>PayPal</td>
-              <td>{{ payPalNet }}</td>
-              <td>{{ toArs(payPalNet) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">PayPal</td>
+              <td class="text-right p-4">
+                {{ payPalNet }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(payPalNet) }}
+              </td>
             </tr>
-            <tr>
-              <td>Nubi Fee</td>
-              <td>{{ nubiDiscount }}</td>
-              <td>{{ toArs(nubiDiscount) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">Nubi Fee</td>
+              <td class="text-right p-4">
+                {{ nubiDiscount }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(nubiDiscount) }}
+              </td>
             </tr>
-            <tr>
-              <td>Net</td>
-              <td>{{ net }}</td>
-              <td>{{ toArs(net) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">Net</td>
+              <td class="text-right p-4">
+                {{ net }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(net) }}
+              </td>
             </tr>
-            <tr>
-              <td>Difference</td>
-              <td>{{ gross - net }}</td>
-              <td>{{ toArs(gross - net) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">Difference</td>
+              <td class="text-right p-4">
+                {{ gross - net }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(gross - net) }}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="flex-1">
-        <table>
+      <div class="flex-1 rounded overflow-hidden shadow">
+        <table class="w-full">
           <thead>
-            <tr>
-              <th>Yearly</th>
-              <th>USD</th>
-              <th>ARS ~ ${{ dollar }}</th>
+            <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
+              <th class="p-4">Yearly</th>
+              <th class="p-4">U$D</th>
+              <th class="p-4">AR$</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Gross</td>
-              <td>{{ yearly(gross) }}</td>
-              <td>{{ toArs(yearly(gross)) }}</td>
+          <tr class="text-grey-darkest">
+              <td class="p-4">Gross</td>
+              <td class="text-right p-4">{{ yearly(gross) }}</td>
+              <td class="text-right p-4">{{ toArs(yearly(gross)) }}</td>
             </tr>
-            <tr>
-              <td>PayPal Fee</td>
-              <td>{{ yearly(payPalDiscount) }}</td>
-              <td>{{ toArs(yearly(payPalDiscount)) }}</td>
+          <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">PayPal Fee</td>
+              <td class="p-4">{{ yearly(payPalDiscount) }}</td>
+              <td class="p-4">{{ toArs(yearly(payPalDiscount)) }}</td>
             </tr>
-            <tr>
-              <td>PayPal</td>
-              <td>{{ yearly(payPalNet) }}</td>
-              <td>{{ toArs(yearly(payPalNet)) }}</td>
+          <tr class="text-grey-darkest">
+              <td class="p-4">PayPal</td>
+              <td class="p-4">{{ yearly(payPalNet) }}</td>
+              <td class="p-4">{{ toArs(yearly(payPalNet)) }}</td>
             </tr>
-            <tr>
-              <td>Nubi Fee</td>
-              <td>{{ yearly(nubiDiscount) }}</td>
-              <td>{{ toArs(yearly(nubiDiscount)) }}</td>
+          <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">Nubi Fee</td>
+              <td class="p-4">{{ yearly(nubiDiscount) }}</td>
+              <td class="p-4">{{ toArs(yearly(nubiDiscount)) }}</td>
             </tr>
-            <tr>
-              <td>Net</td>
-              <td>{{ yearly(net) }}</td>
-              <td>{{ toArs(yearly(net)) }}</td>
+          <tr class="text-grey-darkest">
+              <td class="p-4">Net</td>
+              <td class="p-4">{{ yearly(net) }}</td>
+              <td class="p-4">{{ toArs(yearly(net)) }}</td>
             </tr>
-            <tr>
-              <td>Difference</td>
-              <td>{{ yearly(gross - net) }}</td>
-              <td>{{ toArs(yearly(gross - net)) }}</td>
+          <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">Difference</td>
+              <td class="p-4">{{ yearly(gross - net) }}</td>
+              <td class="p-4">{{ toArs(yearly(gross - net)) }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <p
+      v-else
+      class="text-grey-dark mt-6"
+    >
+      Add an income to see results...
+    </p>
   </div>
 </template>
 
