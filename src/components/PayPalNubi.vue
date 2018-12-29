@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <div>
-      <label
-        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-        for="dollar"
-      >
-        ARS/USD
-      </label>
-      <input
-        id="dollar"
-        v-model="dollar"
-        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-        type="text"
-      >
-    </div>
-    <div class="flex">
-      <div class="flex-1">
+  <div class="container mx-auto pt-6">
+    <div class="mb-4 flex">
+      <div class="flex-1 mr-6">
+        <label
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+          for="dollar"
+        >
+          ARS/USD
+        </label>
+        <input
+          id="dollar"
+          v-model="dollar"
+          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+          type="text"
+        >
+      </div>
+      <div class="flex-1 mr-6">
         <label
           class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
           for="income"
         >
-          Salary
+          Income
         </label>
         <input
           id="income"
@@ -29,29 +29,41 @@
           type="text"
         >
       </div>
-      <div class="flex-1">
-        <input
-          v-model="range"
-          type="radio"
-          value="monthly"
-        >Monthly
-        <input
-          v-model="range"
-          type="radio"
-          value="yearly"
-        >Yearly
+      <div class="flex flex-col justify-end pb-1 mr-6">
+        <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
+          <input
+            v-model="range"
+            type="radio"
+            value="monthly"
+            class="mr-1"
+          >Monthly
+        </label>
+        <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2">
+          <input
+            v-model="range"
+            type="radio"
+            value="yearly"
+            class="mr-1"
+          >Yearly
+        </label>
       </div>
-      <div class="flex-1">
-        <input
-          v-model="margin"
-          type="radio"
-          value="gross"
-        >Gross
-        <input
-          v-model="margin"
-          type="radio"
-          value="net"
-        >Net
+      <div class="flex flex-col justify-end pb-1">
+        <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
+          <input
+            v-model="margin"
+            type="radio"
+            value="gross"
+            class="mr-1"
+          >Gross
+        </label>
+        <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2">
+          <input
+            v-model="margin"
+            type="radio"
+            value="net"
+            class="mr-1"
+          >Net
+        </label>
       </div>
     </div>
     <div
