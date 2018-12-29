@@ -102,10 +102,10 @@
                 Gross
               </td>
               <td class="text-right p-4">
-                {{ gross.toFixed(2) }}
+                {{ formatter.format(gross) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(gross).toFixed(2) }}
+                {{ formatter.format(toArs(gross)) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -113,10 +113,10 @@
                 PayPal Fee
               </td>
               <td class="text-right p-4">
-                {{ payPalDiscount.toFixed(2) }}
+                {{ formatter.format(payPalDiscount) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(payPalDiscount).toFixed(2) }}
+                {{ formatter.format(toArs(payPalDiscount)) }}
               </td>
             </tr>
             <tr class="text-grey-darkest">
@@ -124,10 +124,10 @@
                 PayPal
               </td>
               <td class="text-right p-4">
-                {{ payPalNet.toFixed(2) }}
+                {{ formatter.format(payPalNet) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(payPalNet).toFixed(2) }}
+                {{ formatter.format(toArs(payPalNet)) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -135,10 +135,10 @@
                 Nubi Fee
               </td>
               <td class="text-right p-4">
-                {{ nubiDiscount.toFixed(2) }}
+                {{ formatter.format(nubiDiscount) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(nubiDiscount).toFixed(2) }}
+                {{ formatter.format(toArs(nubiDiscount)) }}
               </td>
             </tr>
             <tr class="text-grey-darkest">
@@ -146,10 +146,10 @@
                 Net
               </td>
               <td class="text-right p-4">
-                {{ net.toFixed(2) }}
+                {{ formatter.format(net) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(net).toFixed(2) }}
+                {{ formatter.format(toArs(net)) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -157,10 +157,10 @@
                 Difference
               </td>
               <td class="text-right p-4">
-                {{ (gross - net).toFixed(2) }}
+                {{ formatter.format((gross - net)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(gross - net).toFixed(2) }}
+                {{ formatter.format(toArs(gross - net)) }}
               </td>
             </tr>
           </tbody>
@@ -187,10 +187,10 @@
                 Gross
               </td>
               <td class="text-right p-4">
-                {{ yearly(gross).toFixed(2) }}
+                {{ formatter.format(yearly(gross)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(gross)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(gross))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -198,10 +198,10 @@
                 PayPal Fee
               </td>
               <td class="text-right p-4">
-                {{ yearly(payPalDiscount).toFixed(2) }}
+                {{ formatter.format(yearly(payPalDiscount)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(payPalDiscount)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(payPalDiscount))) }}
               </td>
             </tr>
             <tr class="text-grey-darkest">
@@ -209,10 +209,10 @@
                 PayPal
               </td>
               <td class="text-right p-4">
-                {{ yearly(payPalNet).toFixed(2) }}
+                {{ formatter.format(yearly(payPalNet)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(payPalNet)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(payPalNet))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -220,10 +220,10 @@
                 Nubi Fee
               </td>
               <td class="text-right p-4">
-                {{ yearly(nubiDiscount).toFixed(2) }}
+                {{ formatter.format(yearly(nubiDiscount)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(nubiDiscount)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(nubiDiscount))) }}
               </td>
             </tr>
             <tr class="text-grey-darkest">
@@ -231,10 +231,10 @@
                 Net
               </td>
               <td class="text-right p-4">
-                {{ yearly(net).toFixed(2) }}
+                {{ formatter.format(yearly(net)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(net)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(net))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -242,10 +242,10 @@
                 Difference
               </td>
               <td class="text-right p-4">
-                {{ yearly(gross - net).toFixed(2) }}
+                {{ formatter.format(yearly(gross - net)) }}
               </td>
               <td class="text-right p-4">
-                {{ toArs(yearly(gross - net)).toFixed(2) }}
+                {{ formatter.format(toArs(yearly(gross - net))) }}
               </td>
             </tr>
           </tbody>
@@ -279,7 +279,13 @@ export default {
       nubi: {
         percentage: 0.029,
         tax: 0.21
-      }
+      },
+
+      formatter: new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2
+      })
     };
   },
   computed: {
