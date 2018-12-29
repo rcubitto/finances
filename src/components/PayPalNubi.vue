@@ -34,6 +34,7 @@
           <input
             id="income"
             v-model.number="income"
+            autofocus
             class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-6 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
             type="number"
           >
@@ -101,10 +102,10 @@
                 Gross
               </td>
               <td class="text-right p-4">
-               {{ gross.toFixed(2) }}
+                {{ gross.toFixed(2) }}
               </td>
               <td class="text-right p-4">
-               {{ toArs(gross).toFixed(2) }}
+                {{ toArs(gross).toFixed(2) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
