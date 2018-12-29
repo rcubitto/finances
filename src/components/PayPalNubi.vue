@@ -20,7 +20,7 @@
           class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
           for="income"
         >
-          Income
+          Income [U$S]
         </label>
         <input
           id="income"
@@ -161,6 +161,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -206,6 +208,12 @@ export default {
         return this.payPalNet - this.nubiDiscount;
       }
     }
+  },
+  created() {
+    axios
+      .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")
+      .then(({ data: { libre } }) => (this.dollar = libre))
+      .catch(err => console.error(err)); // TODO: show input error
   },
   methods: {
     yearly(amount) {
