@@ -8,14 +8,12 @@
         >
           ARS/USD
         </label>
-        <div class="flex items-center">
-          <span class="-mr-5 z-10 text-grey-dark">
-            $
-          </span>
+        <div class="flex relative">
+          <DollarIcon />
           <input
             id="dollar"
             v-model.number="dollar"
-            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-6 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
             type="number"
           >
         </div>
@@ -27,15 +25,13 @@
         >
           Income [U$D]
         </label>
-        <div class="flex items-center">
-          <span class="-mr-5 z-10 text-grey-dark">
-            $
-          </span>
+        <div class="flex relative">
+          <DollarIcon />
           <input
             id="income"
             v-model.number="income"
             autofocus
-            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-6 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
             type="number"
           >
         </div>
@@ -263,8 +259,10 @@
 
 <script>
 import axios from "axios";
+import DollarIcon from "./shared/DollarIcon";
 
 export default {
+  components: { DollarIcon },
   data() {
     return {
       dollar: null,
