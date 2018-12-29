@@ -84,14 +84,22 @@
         <table class="w-full">
           <thead>
             <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
-              <th class="p-4">Monthly</th>
-              <th class="p-4">U$D</th>
-              <th class="p-4">AR$</th>
+              <th class="p-4">
+                Monthly
+              </th>
+              <th class="p-4">
+                U$D
+              </th>
+              <th class="p-4">
+                AR$
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr class="text-grey-darkest">
-              <td class="p-4">Gross</td>
+              <td class="p-4">
+                Gross
+              </td>
               <td class="text-right p-4">
                 {{ gross }}
               </td>
@@ -100,7 +108,9 @@
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">PayPal Fee</td>
+              <td class="p-4">
+                PayPal Fee
+              </td>
               <td class="text-right p-4">
                 {{ payPalDiscount }}
               </td>
@@ -109,7 +119,9 @@
               </td>
             </tr>
             <tr class="text-grey-darkest">
-              <td class="p-4">PayPal</td>
+              <td class="p-4">
+                PayPal
+              </td>
               <td class="text-right p-4">
                 {{ payPalNet }}
               </td>
@@ -118,7 +130,9 @@
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">Nubi Fee</td>
+              <td class="p-4">
+                Nubi Fee
+              </td>
               <td class="text-right p-4">
                 {{ nubiDiscount }}
               </td>
@@ -127,7 +141,9 @@
               </td>
             </tr>
             <tr class="text-grey-darkest">
-              <td class="p-4">Net</td>
+              <td class="p-4">
+                Net
+              </td>
               <td class="text-right p-4">
                 {{ net }}
               </td>
@@ -136,7 +152,9 @@
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">Difference</td>
+              <td class="p-4">
+                Difference
+              </td>
               <td class="text-right p-4">
                 {{ gross - net }}
               </td>
@@ -151,41 +169,83 @@
         <table class="w-full">
           <thead>
             <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
-              <th class="p-4">Yearly</th>
-              <th class="p-4">U$D</th>
-              <th class="p-4">AR$</th>
+              <th class="p-4">
+                Yearly
+              </th>
+              <th class="p-4">
+                U$D
+              </th>
+              <th class="p-4">
+                AR$
+              </th>
             </tr>
           </thead>
           <tbody>
-          <tr class="text-grey-darkest">
-              <td class="p-4">Gross</td>
-              <td class="text-right p-4">{{ yearly(gross) }}</td>
-              <td class="text-right p-4">{{ toArs(yearly(gross)) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">
+                Gross
+              </td>
+              <td class="text-right p-4">
+                {{ yearly(gross) }}
+              </td>
+              <td class="text-right p-4">
+                {{ toArs(yearly(gross)) }}
+              </td>
             </tr>
-          <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">PayPal Fee</td>
-              <td class="p-4">{{ yearly(payPalDiscount) }}</td>
-              <td class="p-4">{{ toArs(yearly(payPalDiscount)) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">
+                PayPal Fee
+              </td>
+              <td class="p-4">
+                {{ yearly(payPalDiscount) }}
+              </td>
+              <td class="p-4">
+                {{ toArs(yearly(payPalDiscount)) }}
+              </td>
             </tr>
-          <tr class="text-grey-darkest">
-              <td class="p-4">PayPal</td>
-              <td class="p-4">{{ yearly(payPalNet) }}</td>
-              <td class="p-4">{{ toArs(yearly(payPalNet)) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">
+                PayPal
+              </td>
+              <td class="p-4">
+                {{ yearly(payPalNet) }}
+              </td>
+              <td class="p-4">
+                {{ toArs(yearly(payPalNet)) }}
+              </td>
             </tr>
-          <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">Nubi Fee</td>
-              <td class="p-4">{{ yearly(nubiDiscount) }}</td>
-              <td class="p-4">{{ toArs(yearly(nubiDiscount)) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">
+                Nubi Fee
+              </td>
+              <td class="p-4">
+                {{ yearly(nubiDiscount) }}
+              </td>
+              <td class="p-4">
+                {{ toArs(yearly(nubiDiscount)) }}
+              </td>
             </tr>
-          <tr class="text-grey-darkest">
-              <td class="p-4">Net</td>
-              <td class="p-4">{{ yearly(net) }}</td>
-              <td class="p-4">{{ toArs(yearly(net)) }}</td>
+            <tr class="text-grey-darkest">
+              <td class="p-4">
+                Net
+              </td>
+              <td class="p-4">
+                {{ yearly(net) }}
+              </td>
+              <td class="p-4">
+                {{ toArs(yearly(net)) }}
+              </td>
             </tr>
-          <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">Difference</td>
-              <td class="p-4">{{ yearly(gross - net) }}</td>
-              <td class="p-4">{{ toArs(yearly(gross - net)) }}</td>
+            <tr class="bg-grey-lighter text-grey-darkest">
+              <td class="p-4">
+                Difference
+              </td>
+              <td class="p-4">
+                {{ yearly(gross - net) }}
+              </td>
+              <td class="p-4">
+                {{ toArs(yearly(gross - net)) }}
+              </td>
             </tr>
           </tbody>
         </table>
