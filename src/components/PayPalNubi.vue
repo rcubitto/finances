@@ -209,27 +209,41 @@ export default {
       dollar: null,
       income: null,
       range: "monthly",
-      margin: "gross"
+      margin: "gross",
+
+      paypal: {
+        percentage: 0.054,
+        fixed: 0.3
+      },
+      nubi: {
+        percentage: 0.029,
+        tax: 0.21
+      }
     };
   },
   computed: {
     gross() {
       if (this.margin === "net") {
-        return (this.payPalNet + 0.3) / (1 - 0.054);
+        return (
+          (this.payPalNet + this.paypal.fixed) / (1 - this.paypal.percentage)
+        );
       } else {
         return this.range === "yearly" ? this.income / 12 : this.income;
       }
     },
     payPalDiscount() {
       if (this.margin === "net") {
-        return this.gross * 0.054 - 0.3;
+        return this.gross * this.paypal.percentage - this.paypal.fixed;
       } else {
-        return this.gross * 0.054 + 0.3;
+        return this.gross * this.paypal.percentage + this.paypal.fixed;
       }
     },
     payPalNet() {
       if (this.margin === "net") {
-        return this.net / (1 - 0.029 - 0.029 * 0.21);
+        return (
+          this.net /
+          (1 - this.nubi.percentage - this.nubi.percentage * this.nubi.tax)
+        );
       } else {
         return this.gross - this.payPalDiscount;
       }
@@ -238,7 +252,10 @@ export default {
       if (this.margin === "net") {
         return this.payPalNet - this.net;
       } else {
-        return this.payPalNet * 0.029 + this.payPalNet * 0.029 * 0.21;
+        return (
+          this.payPalNet * this.nubi.percentage +
+          this.payPalNet * this.nubi.percentage * this.nubi.tax
+        );
       }
     },
     net() {
