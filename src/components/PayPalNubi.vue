@@ -83,14 +83,28 @@
     </div>
     <div
       v-if="income && dollar"
-      class="flex border-grey-lighter border-t-2 pt-6"
+      class="border-grey-lighter border-t-2 pt-6"
     >
-      <div class="flex-1 mr-16 rounded overflow-hidden shadow">
+      <div class="flex items-center mb-6">
+        <div class="bg-indigo rounded-full w-10 h-5">
+          <button
+            class="bg-white focus:outline-none w-5 h-5 border rounded-full"
+            style="transition: all 200ms"
+            :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
+            @click="monthlyResults = ! monthlyResults"
+          />
+        </div>
+        <span class="text-grey-dark uppercase font-bold text-xs mx-2">
+          {{ monthlyResults ? 'Per Month' : 'Per Year' }}
+        </span>
+      </div>
+      
+      <div class="rounded overflow-hidden shadow">
         <table class="w-full">
           <thead>
             <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
               <th class="text-left p-4">
-                Monthly
+                Expense
               </th>
               <th class="text-right p-4">
                 U$D
@@ -106,10 +120,10 @@
                 Gross
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(gross) }}
+                {{ formatter.format(monthlyResults ? gross : yearly(gross)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(gross)) }}
+                {{ formatter.format(toArs(monthlyResults ? gross : yearly(gross))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -117,10 +131,10 @@
                 PayPal Fee
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(payPalDiscount) }}
+                {{ formatter.format(monthlyResults ? payPalDiscount : yearly(payPalDiscount)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(payPalDiscount)) }}
+                {{ formatter.format(toArs(monthlyResults ? payPalDiscount : yearly(payPalDiscount))) }}
               </td>
             </tr>
             <tr class="text-grey-darkest">
@@ -128,10 +142,10 @@
                 PayPal
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(payPalNet) }}
+                {{ formatter.format(monthlyResults ? payPalNet : yearly(payPalNet)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(payPalNet)) }}
+                {{ formatter.format(toArs(monthlyResults ? payPalNet : yearly(payPalNet))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -139,10 +153,10 @@
                 Nubi Fee
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(nubiDiscount) }}
+                {{ formatter.format(monthlyResults ? nubiDiscount : yearly(nubiDiscount)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(nubiDiscount)) }}
+                {{ formatter.format(toArs(monthlyResults ? nubiDiscount : yearly(nubiDiscount))) }}
               </td>
             </tr>
             <tr class="text-grey-darkest font-bold">
@@ -150,10 +164,10 @@
                 Net
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(net) }}
+                {{ formatter.format(monthlyResults ? net : yearly(net)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(net)) }}
+                {{ formatter.format(toArs(monthlyResults ? net : yearly(net))) }}
               </td>
             </tr>
             <tr class="bg-grey-lighter text-grey-darkest">
@@ -161,95 +175,10 @@
                 Difference
               </td>
               <td class="text-right p-4">
-                {{ formatter.format((gross - net)) }}
+                {{ formatter.format(monthlyResults ? (gross - net) : yearly(gross - net)) }}
               </td>
               <td class="text-right p-4">
-                {{ formatter.format(toArs(gross - net)) }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="flex-1 rounded overflow-hidden shadow">
-        <table class="w-full">
-          <thead>
-            <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
-              <th class="text-left p-4">
-                Yearly
-              </th>
-              <th class="text-right p-4">
-                U$D
-              </th>
-              <th class="text-right p-4">
-                AR$
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-grey-darkest">
-              <td class="p-4">
-                Gross
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(gross)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(gross))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                PayPal Fee
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(payPalDiscount)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(payPalDiscount))) }}
-              </td>
-            </tr>
-            <tr class="text-grey-darkest">
-              <td class="p-4">
-                PayPal
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(payPalNet)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(payPalNet))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                Nubi Fee
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(nubiDiscount)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(nubiDiscount))) }}
-              </td>
-            </tr>
-            <tr class="text-grey-darkest">
-              <td class="p-4">
-                Net
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(net)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(net))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                Difference
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(yearly(gross - net)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(yearly(gross - net))) }}
+                {{ formatter.format(toArs(monthlyResults ? (gross - net) : yearly(gross - net))) }}
               </td>
             </tr>
           </tbody>
@@ -275,9 +204,11 @@ export default {
     return {
       dollar: null,
       dollarHasErrors: false,
-      income: null,
+      income: 5000,
       range: "monthly",
       margin: "gross",
+
+      monthlyResults: true,
 
       paypal: {
         percentage: 0.054,
