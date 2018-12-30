@@ -204,7 +204,7 @@ export default {
     return {
       dollar: null,
       dollarHasErrors: false,
-      income: 5000,
+      income: null,
       range: "monthly",
       margin: "gross",
 
