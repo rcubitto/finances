@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <PayPalNubi />
+    <IncomeInputs />
+    <IncomeDetails />
   </div>
 </template>
 
@@ -9,10 +10,11 @@
 import "./assets/css/styles.css";
 
 import Header from "./components/shared/Header";
-import PayPalNubi from "./components/PayPalNubi";
+import IncomeInputs from "./components/IncomeInputs";
+import IncomeDetails from "./components/IncomeDetails";
 
 export default {
   name: "App",
-  components: { Header, PayPalNubi }
+  components: { Header, IncomeInputs, IncomeDetails }
 };
 </script>
