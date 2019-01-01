@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-6 flex">
+  <div class="mt-6 flex">
     <div class="flex-1 mr-6">
       <label
         class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"

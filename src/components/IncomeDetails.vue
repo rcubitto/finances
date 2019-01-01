@@ -1,115 +1,113 @@
 <template>
-  <div class="container mx-auto mt-6">
-    <div
-      v-if="income && exchange"
-      class="border-grey-lighter border-t-2 pt-6"
-    >
-      <div class="flex items-center mb-6">
-        <div class="bg-indigo rounded-full w-10 h-5">
-          <button
-            class="bg-white focus:outline-none w-5 h-5 border rounded-full"
-            style="transition: all 200ms"
-            :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
-            @click="monthlyResults = ! monthlyResults"
-          />
-        </div>
-        <span class="text-grey-dark uppercase font-bold text-xs mx-2">
-          {{ monthlyResults ? 'Per Month' : 'Per Year' }}
-        </span>
+  <div
+    v-if="income && exchange"
+    class="border-grey-lighter border-t-2 pt-6"
+  >
+    <div class="flex items-center mb-6">
+      <div class="bg-indigo rounded-full w-10 h-5">
+        <button
+          class="bg-white focus:outline-none w-5 h-5 border rounded-full"
+          style="transition: all 200ms"
+          :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
+          @click="monthlyResults = ! monthlyResults"
+        />
       </div>
-      <div class="rounded overflow-hidden shadow">
-        <table class="w-full">
-          <thead>
-            <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
-              <th class="text-left p-4">
-                Description
-              </th>
-              <th class="text-right p-4">
-                U$D
-              </th>
-              <th class="text-right p-4">
-                AR$
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-grey-darkest">
-              <td class="p-4">
-                Gross
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? gross : yearly(gross)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? gross : yearly(gross))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                PayPal Fee
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? payPalDiscount : yearly(payPalDiscount)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? payPalDiscount : yearly(payPalDiscount))) }}
-              </td>
-            </tr>
-            <tr class="text-grey-darkest">
-              <td class="p-4">
-                PayPal
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? payPalNet : yearly(payPalNet)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? payPalNet : yearly(payPalNet))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                Nubi Fee
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? nubiDiscount : yearly(nubiDiscount)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? nubiDiscount : yearly(nubiDiscount))) }}
-              </td>
-            </tr>
-            <tr class="text-grey-darkest font-bold">
-              <td class="p-4">
-                Net
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? net : yearly(net)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? net : yearly(net))) }}
-              </td>
-            </tr>
-            <tr class="bg-grey-lighter text-grey-darkest">
-              <td class="p-4">
-                Difference
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(monthlyResults ? (gross - net) : yearly(gross - net)) }}
-              </td>
-              <td class="text-right p-4">
-                {{ formatter.format(toArs(monthlyResults ? (gross - net) : yearly(gross - net))) }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <span class="text-grey-dark uppercase font-bold text-xs mx-2">
+        {{ monthlyResults ? 'Per Month' : 'Per Year' }}
+      </span>
     </div>
-    <p
-      v-else
-      class="text-grey-dark mt-6"
-    >
-      Add an income to see results...
-    </p>
+    <div class="rounded overflow-hidden shadow">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
+            <th class="text-left p-4">
+              Description
+            </th>
+            <th class="text-right p-4">
+              U$D
+            </th>
+            <th class="text-right p-4">
+              AR$
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-grey-darkest">
+            <td class="p-4">
+              Gross
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? gross : yearly(gross)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? gross : yearly(gross))) }}
+            </td>
+          </tr>
+          <tr class="bg-grey-lighter text-grey-darkest">
+            <td class="p-4">
+              PayPal Fee
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? payPalDiscount : yearly(payPalDiscount)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? payPalDiscount : yearly(payPalDiscount))) }}
+            </td>
+          </tr>
+          <tr class="text-grey-darkest">
+            <td class="p-4">
+              PayPal
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? payPalNet : yearly(payPalNet)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? payPalNet : yearly(payPalNet))) }}
+            </td>
+          </tr>
+          <tr class="bg-grey-lighter text-grey-darkest">
+            <td class="p-4">
+              Nubi Fee
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? nubiDiscount : yearly(nubiDiscount)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? nubiDiscount : yearly(nubiDiscount))) }}
+            </td>
+          </tr>
+          <tr class="text-grey-darkest font-bold">
+            <td class="p-4">
+              Net
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? net : yearly(net)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? net : yearly(net))) }}
+            </td>
+          </tr>
+          <tr class="bg-grey-lighter text-grey-darkest">
+            <td class="p-4">
+              Difference
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(monthlyResults ? (gross - net) : yearly(gross - net)) }}
+            </td>
+            <td class="text-right p-4">
+              {{ formatter.format(toArs(monthlyResults ? (gross - net) : yearly(gross - net))) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <p
+    v-else
+    class="text-grey-dark mt-6"
+  >
+    Add an income to see results...
+  </p>
 </template>
 
 <script>
