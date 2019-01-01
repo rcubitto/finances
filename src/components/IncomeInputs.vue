@@ -11,7 +11,6 @@
         <DollarIcon />
         <input
           id="exchange"
-          ref="exchange"
           v-model.number="exchange"
           class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
           :class="{ 'border-red': exchangeHasErrors && ! exchange }"
@@ -132,7 +131,7 @@ export default {
     document.addEventListener("keyup", e => {
       switch (e.key) {
         case "/":
-          this.$refs.exchange.focus();
+          this.$refs.income.focus();
           break;
         case "m":
           this.range = "monthly";
