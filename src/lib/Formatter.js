@@ -19,6 +19,11 @@ class Formatter {
     return this.get();
   }
 
+  toUSD(exchange) {
+    this.value /= exchange;
+    return this.get();
+  }
+
   get() {
     return this.handler.format(this.value);
   }
