@@ -7,7 +7,13 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "Salary",
       component: () => import("./views/Salary.vue")
+    },
+    {
+      path: "/balance",
+      name: "Balance",
+      component: () => import("./views/Balance.vue")
     }
   ]
 });
