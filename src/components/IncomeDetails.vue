@@ -37,10 +37,10 @@
               Gross
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? gross : yearly(gross)) }}
+              {{ format(gross).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? gross : yearly(gross))) }}
+              {{ format(gross).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -48,10 +48,10 @@
               PayPal Fee
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? payPalDiscount : yearly(payPalDiscount)) }}
+              {{ format(payPalDiscount).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? payPalDiscount : yearly(payPalDiscount))) }}
+              {{ format(payPalDiscount).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
@@ -59,10 +59,10 @@
               PayPal
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? payPalNet : yearly(payPalNet)) }}
+              {{ format(payPalNet).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? payPalNet : yearly(payPalNet))) }}
+              {{ format(payPalNet).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -70,10 +70,10 @@
               Nubi Fee
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? nubiDiscount : yearly(nubiDiscount)) }}
+              {{ format(nubiDiscount).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? nubiDiscount : yearly(nubiDiscount))) }}
+              {{ format(nubiDiscount).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
           <tr class="text-grey-darkest font-bold">
@@ -81,10 +81,10 @@
               Net
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? net : yearly(net)) }}
+              {{ format(net).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? net : yearly(net))) }}
+              {{ format(net).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -92,10 +92,10 @@
               Difference
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(monthlyResults ? (gross - net) : yearly(gross - net)) }}
+              {{ format(gross - net).yearlyIf(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ formatter.format(toArs(monthlyResults ? (gross - net) : yearly(gross - net))) }}
+              {{ format(gross - net).yearlyIf(!monthlyResults).toARS(exchange) }}
             </td>
           </tr>
         </tbody>
@@ -112,6 +112,7 @@
 
 <script>
 import { mapState } from "vuex";
+import format from "../lib/Formatter";
 
 export default {
   data() {
@@ -124,12 +125,7 @@ export default {
       nubi: {
         percentage: 0.029,
         tax: 0.21
-      },
-      formatter: new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2
-      })
+      }
     };
   },
   computed: {
@@ -184,12 +180,7 @@ export default {
     }
   },
   methods: {
-    yearly(amount) {
-      return amount * 12;
-    },
-    toArs(amount) {
-      return amount * this.exchange;
-    }
+    format
   }
 };
 </script>
