@@ -3,17 +3,20 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
+import Salary from "./views/Salary";
+import Balance from "./views/Balance";
+
 export default new Router({
   routes: [
     {
       path: "/",
       name: "Salary",
-      component: () => import("./views/Salary.vue")
+      component: Salary
     },
     {
       path: "/balance",
       name: "Balance",
-      component: () => import("./views/Balance.vue")
+      component: Balance
     }
   ]
 });
