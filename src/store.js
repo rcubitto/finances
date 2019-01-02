@@ -16,20 +16,42 @@ export default new Vuex.Store({
       errors: false
   },
   getters: {
-    outcomeEntries: state => {
-      return state.entries.filter(entry => entry.type === "outcome");
+    // outcome
+    entries: state => type => {
+      return state.entries.filter(entry => entry.type === type);
     },
-    incomeEntries: state => {
-      return state.entries.filter(entry => entry.type === "income");
+    entriesByRange: (state, getters) => (type, range) => {
+      return getters.entries(type).filter(entry => entry.range === range);
     },
-    monthlyOutcomeEntries: (state, getters) => {
-      return getters.outcomeEntries.filter(entry => entry.range === "monthly");
+    entriesByRangeToUSD: (state, getters) => (type, range) => {
+      return getters
+        .entriesByRange(type, range)
+        .map(
+          entry =>
+            entry.currency === "USD"
+              ? entry.price
+              : entry.price / state.exchange.value
+        );
     },
-    yearlyOutcomeEntries: (state, getters) => {
-      return getters.outcomeEntries.filter(entry => entry.range === "yearly");
+    entriesByRangeToARS: (state, getters) => (type, range) => {
+      return getters
+        .entriesByRange(type, range)
+        .map(
+          entry =>
+            entry.currency === "ARS"
+              ? entry.price
+              : entry.price * state.exchange.value
+        );
     },
-    yearlyIncomeEntries: (state, getters) => {
-      return getters.incomeEntries.filter(entry => entry.range === "yearly");
+    entriesByRangeAndCurrencySum: (state, getters) => (
+      type,
+      range,
+      currency
+    ) => {
+      return (currency === "ARS"
+        ? getters.entriesByRangeToARS(type, range)
+        : getters.entriesByRangeToUSD(type, range)
+      ).reduce((carry, price) => carry + price, 0);
     }
   },
   mutations: {
