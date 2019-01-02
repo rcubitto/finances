@@ -5,13 +5,13 @@
         <table class="w-full">
           <thead>
             <tr class="bg-red-lightest border-b-4 border-red-lighter uppercase text-red-light tracking-wide text-xs font-bold">
-              <th class="text-left p-4">
+              <th class="text-left p-2">
                 Description → [Monthly]
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 U$S
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 AR$
               </th>
             </tr>
@@ -23,39 +23,43 @@
               class="text-grey-darkest"
               :class="{ 'bg-grey-lighter': index % 2 === 1 }"
             >
-              <td class="p-4">
+              <td class="p-2">
                 {{ entry.detail }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "ARS" ? format(entry.price).get() : format(entry.price).toARS(exchange) }}
               </td>
             </tr>
-            <tr class="text-grey-darkest font-bold">
-              <td class="text-left p-4">
+            <tr class="text-grey-darkest font-bold bg-grey-light">
+              <td class="text-left p-2">
                 Total
               </td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).get() }}</td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).get() }}</td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).get() }}
+              </td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).get() }}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="flex-1 flex flex-col">
-      <div class="rounded overflow-hidden shadow mb-6">
+      <div class="rounded overflow-hidden shadow mb-10">
         <table class="w-full">
           <thead>
             <tr class="bg-red-lightest border-b-4 border-red-lighter uppercase text-red-light tracking-wide text-xs font-bold">
-              <th class="text-left p-4">
+              <th class="text-left p-2">
                 Description → [Yearly]
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 U$S
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 AR$
               </th>
             </tr>
@@ -65,23 +69,28 @@
               v-for="(entry, index) in entriesByRange('outcome', 'yearly')"
               :key="index"
               class="text-grey-darkest"
+              :class="{ 'bg-grey-lighter': index % 2 === 1 }"
             >
-              <td class="p-4">
+              <td class="p-2">
                 {{ entry.detail }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "ARS" ? format(entry.price) : format(entry.price).toARS(exchange) }}
               </td>
             </tr>
-            <tr class="text-grey-darkest font-bold">
-              <td class="text-left p-4">
+            <tr class="text-grey-darkest font-bold bg-grey-light">
+              <td class="text-left p-2">
                 Total
               </td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "USD")).get() }}</td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "ARS")).get() }}</td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "USD")).get() }}
+              </td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "ARS")).get() }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -90,13 +99,13 @@
         <table class="w-full">
           <thead>
             <tr class="bg-green-lightest border-b-4 border-green-light uppercase text-green-dark tracking-wide text-xs font-bold">
-              <th class="text-left p-4">
+              <th class="text-left p-2">
                 Description → [Yearly]
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 U$S
               </th>
-              <th class="text-right p-4">
+              <th class="text-right p-2">
                 AR$
               </th>
             </tr>
@@ -106,23 +115,28 @@
               v-for="(entry, index) in entriesByRange('income', 'yearly')"
               :key="index"
               class="text-grey-darkest"
+              :class="{ 'bg-grey-lighter': index % 2 === 1 }"
             >
-              <td class="p-4">
+              <td class="p-2">
                 {{ entry.detail }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
               </td>
-              <td class="text-right p-4">
+              <td class="text-right p-2">
                 {{ entry.currency === "ARS" ? format(entry.price).get() : format(entry.price).toARS(exchange) }}
               </td>
             </tr>
-            <tr class="text-grey-darkest font-bold">
-              <td class="text-left p-4">
+            <tr class="text-grey-darkest font-bold bg-grey-light">
+              <td class="text-left p-2">
                 Total
               </td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("income", "yearly", "USD")).get() }}</td>
-              <td class="text-right p-4">{{ format(entriesByRangeAndCurrencySum("income", "yearly", "ARS")).get() }}</td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("income", "yearly", "USD")).get() }}
+              </td>
+              <td class="text-right p-2">
+                {{ format(entriesByRangeAndCurrencySum("income", "yearly", "ARS")).get() }}
+              </td>
             </tr>
           </tbody>
         </table>
