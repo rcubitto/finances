@@ -5,8 +5,10 @@ import router from "./router";
 
 Vue.config.productionTip = false;
 
-new Vue({
+const app = new Vue({
   store,
   router,
   render: h => h(App)
 }).$mount("#app");
+
+app.$store.dispatch("fetchExchange");

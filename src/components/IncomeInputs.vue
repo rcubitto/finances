@@ -126,8 +126,6 @@ export default {
     })
   },
   created() {
-    this.fetchExchange();
-
     document.addEventListener("keyup", e => {
       switch (e.key) {
         case "/":
