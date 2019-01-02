@@ -14,6 +14,22 @@ export default new Vuex.Store({
     exchange: {
       value: null,
       errors: false
+  },
+  getters: {
+    outcomeEntries: state => {
+      return state.entries.filter(entry => entry.type === "outcome");
+    },
+    incomeEntries: state => {
+      return state.entries.filter(entry => entry.type === "income");
+    },
+    monthlyOutcomeEntries: (state, getters) => {
+      return getters.outcomeEntries.filter(entry => entry.range === "monthly");
+    },
+    yearlyOutcomeEntries: (state, getters) => {
+      return getters.outcomeEntries.filter(entry => entry.range === "yearly");
+    },
+    yearlyIncomeEntries: (state, getters) => {
+      return getters.incomeEntries.filter(entry => entry.range === "yearly");
     }
   },
   mutations: {
