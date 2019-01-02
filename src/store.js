@@ -14,6 +14,8 @@ export default new Vuex.Store({
     exchange: {
       value: null,
       errors: false
+    },
+    entries: []
   },
   getters: {
     // outcome
@@ -69,6 +71,9 @@ export default new Vuex.Store({
     },
     updateIncomeMargin(state, value) {
       state.income.margin = value;
+    },
+    updateEntries(state, value) {
+      state.entries = value;
     }
   },
   actions: {
@@ -78,6 +83,15 @@ export default new Vuex.Store({
         .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")
         .then(({ data: { libre } }) => commit("updateExchange", Number(libre)))
         .catch(() => commit("flagExchangeErrors"));
+    },
+    fetchEntries({ commit }) {
+      setTimeout(
+        () =>
+          import("./payload.json").then(({ entries }) => {
+            commit("updateEntries", entries);
+          }),
+        500
+      ); // delay half a second so that Vue DevTools catches the commit.
     }
   },
   strict: process.env.NODE_ENV !== "production"

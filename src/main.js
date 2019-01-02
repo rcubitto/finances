@@ -10,6 +10,7 @@ new Vue({
   router,
   created() {
     this.$store.dispatch("fetchExchange");
+    this.$store.dispatch("fetchEntries");
   },
   render: h => h(App)
 }).$mount("#app");
