@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import format from "@/lib/Formatter";
 import ArrowDownIcon from "@/components/shared/ArrowDownIcon";
 
@@ -113,18 +113,12 @@ export default {
   },
   computed: {
     ...mapState({
-      exchange: state => state.exchange.value
-    }),
-    category: {
-      get() {
-        return this.$store.state.category;
-      },
-      set(category) {
-        this.$store.commit("updateCategory", category);
-      }
-    }
+      exchange: state => state.exchange.value,
+      category: "category"
+    })
   },
   methods: {
+    ...mapActions(["syncCategory"]),
     format,
     hasChosenCategory() {
       return this.category.label !== null;
@@ -133,8 +127,7 @@ export default {
       return this.category.label === category.label;
     },
     toggleCategory(category) {
-      this.$store.commit(
-        "updateCategory",
+      this.syncCategory(
         this.matchesChosenCategory(category)
           ? { label: null, income: null, total: null }
           : category

@@ -18,8 +18,8 @@ export default new Vuex.Store({
     entries: [],
     category: {
       label: null,
-      income: null,
-      total: null
+      income: 0,
+      total: 0
     }
   },
   getters: {
@@ -99,6 +99,29 @@ export default new Vuex.Store({
           }),
         500
       ); // delay half a second so that Vue DevTools catches the commit.
+    },
+    syncCategory({ state, commit }, category) {
+      commit("updateCategory", category);
+
+      const entries = state.entries.filter(
+        entry => !entry.detail.startsWith("Monotributo")
+      );
+
+      commit(
+        "updateEntries",
+        category.label !== null
+          ? [
+              ...entries,
+              {
+                type: "outcome",
+                range: "monthly",
+                detail: `Monotributo ${category.label}`,
+                price: category.total,
+                currency: "ARS"
+              }
+            ]
+          : entries
+      );
     }
   },
   strict: process.env.NODE_ENV !== "production"
