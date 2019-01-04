@@ -23,7 +23,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    // outcome
     entries: state => type => {
       return state.entries.filter(entry => entry.type === type);
     },
