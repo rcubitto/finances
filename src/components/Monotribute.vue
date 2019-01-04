@@ -50,40 +50,32 @@
           Category {{ category.label }}
         </p>
         <div class="flex mb-4">
-          <div class="flex-1 bg-indigo-light p-6 rounded text-indigo-lightest mr-4 overflow-hidden shadow-md">
-            <span class="text-2xl">
-              {{ format(category.income).get() }}
-            </span>
-            <p class="text-indigo-lighter">
-              Annual Gross Income AR$
-            </p>
-          </div>
-          <div class="flex-1 bg-indigo-light p-6 rounded text-indigo-lightest overflow-hidden shadow-md">
-            <span class="text-2xl mb-4">
-              {{ format(category.income / 12).get() }}
-            </span>
-            <p class="text-indigo-lighter">
-              Monthly Gross Income AR$
-            </p>
-          </div>
+          <Pill
+            color="indigo"
+            :title="format(category.income).get()"
+            subtitle="Annual Gross Income AR$"
+            extra-css="flex-1 mr-4"
+          />
+          <Pill
+            color="indigo"
+            :title="format(category.income / 12).get()"
+            subtitle="Monthly Gross Income AR$"
+            extra-css="flex-1"
+          />
         </div>
         <div class="flex">
-          <div class="flex-1 bg-teal-light p-6 rounded text-teal-lightest mr-4 overflow-hidden shadow-md">
-            <span class="text-2xl">
-              {{ format(category.income / exchange).get() }}
-            </span>
-            <p class="text-teal-lighter">
-              Annual Gross Income U$S
-            </p>
-          </div>
-          <div class="flex-1 bg-teal-light p-6 rounded text-teal-lightest overflow-hidden shadow-md">
-            <span class="text-2xl">
-              {{ format(category.income / 12 / exchange).get() }}
-            </span>
-            <p class="text-teal-lighter">
-              Monthly Gross Income U$S
-            </p>
-          </div>
+          <Pill
+            color="teal"
+            :title="format(category.income / exchange).get()"
+            subtitle="Annual Gross Income U$S"
+            extra-css="flex-1 mr-4"
+          />
+          <Pill
+            color="teal"
+            :title="format(category.income / 12 / exchange).get()"
+            subtitle="Monthly Gross Income U$S"
+            extra-css="flex-1"
+          />
         </div>
       </template>
     </div>
@@ -94,9 +86,10 @@
 import { mapState, mapActions } from "vuex";
 import format from "@/lib/Formatter";
 import ArrowDownIcon from "@/components/ArrowDownIcon";
+import Pill from "@/components/Pill";
 
 export default {
-  components: { ArrowDownIcon },
+  components: { ArrowDownIcon, Pill },
   data() {
     return {
       categories: [
