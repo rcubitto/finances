@@ -50,7 +50,7 @@
           Category {{ category.label }}
         </p>
         <div class="flex mb-4">
-          <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest mr-4 overflow-hidden shadow-md">
+          <div class="flex-1 bg-indigo-light p-6 rounded text-indigo-lightest mr-4 overflow-hidden shadow-md">
             <span class="text-2xl">
               {{ format(category.income).get() }}
             </span>
@@ -58,7 +58,7 @@
               Annual Gross Income AR$
             </p>
           </div>
-          <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest overflow-hidden shadow-md">
+          <div class="flex-1 bg-indigo-light p-6 rounded text-indigo-lightest overflow-hidden shadow-md">
             <span class="text-2xl mb-4">
               {{ format(category.income / 12).get() }}
             </span>
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="flex">
-          <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest mr-4 overflow-hidden shadow-md">
+          <div class="flex-1 bg-teal-light p-6 rounded text-teal-lightest mr-4 overflow-hidden shadow-md">
             <span class="text-2xl">
               {{ format(category.income / exchange).get() }}
             </span>
@@ -76,7 +76,7 @@
               Annual Gross Income U$S
             </p>
           </div>
-          <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest overflow-hidden shadow-md">
+          <div class="flex-1 bg-teal-light p-6 rounded text-teal-lightest overflow-hidden shadow-md">
             <span class="text-2xl">
               {{ format(category.income / 12 / exchange).get() }}
             </span>
