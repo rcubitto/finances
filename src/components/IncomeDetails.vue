@@ -37,10 +37,10 @@
               Gross Salary
             </td>
             <td class="text-right p-4">
-              {{ format(gross).yearlyIf(!monthlyResults).get() }}
+              {{ convert(gross).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(gross).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(gross).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -48,10 +48,10 @@
               PayPal Fee
             </td>
             <td class="text-right p-4">
-              {{ format(payPalDiscount).yearlyIf(!monthlyResults).get() }}
+              {{ convert(payPalDiscount).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(payPalDiscount).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(payPalDiscount).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
@@ -59,10 +59,10 @@
               PayPal Account
             </td>
             <td class="text-right p-4">
-              {{ format(payPalNet).yearlyIf(!monthlyResults).get() }}
+              {{ convert(payPalNet).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(payPalNet).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(payPalNet).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -70,10 +70,10 @@
               Nubi Fee
             </td>
             <td class="text-right p-4">
-              {{ format(nubiDiscount).yearlyIf(!monthlyResults).get() }}
+              {{ convert(nubiDiscount).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(nubiDiscount).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(nubiDiscount).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
@@ -81,10 +81,10 @@
               Subtotal Fees
             </td>
             <td class="text-right p-4">
-              {{ format(gross - net).yearlyIf(!monthlyResults).get() }}
+              {{ convert(gross - net).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(gross - net).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(gross - net).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -92,10 +92,10 @@
               Net Salary
             </td>
             <td class="text-right p-4">
-              {{ format(net).yearlyIf(!monthlyResults).get() }}
+              {{ convert(net).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(net).yearlyIf(!monthlyResults).toARS(exchange) }}
+              {{ convert(net).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           
@@ -104,10 +104,10 @@
               Monthly Expense
             </td>
             <td class="text-right p-4">
-              {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).yearlyIf(!monthlyResults).get() }}
+              {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).yearlyIf(!monthlyResults).get() }}
+              {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).toYear(!monthlyResults).get() }}
             </td>
           </tr>
           <tr class="bg-grey-light text-grey-darkest font-bold">
@@ -115,10 +115,10 @@
               Balance
             </td>
             <td class="text-right p-4">
-              {{ format(net - entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).yearlyIf(!monthlyResults).get() }}
+              {{ convert(net - entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ format((net * exchange) - entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).yearlyIf(!monthlyResults).get() }}
+              {{ convert((net * exchange) - entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).toYear(!monthlyResults).get() }}
             </td>
           </tr>
         </tbody>
@@ -135,7 +135,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import format from "@/lib/Formatter";
+import convert from "@/lib/Converter";
 
 export default {
   data() {
@@ -206,8 +206,6 @@ export default {
       return 10;
     }
   },
-  methods: {
-    format
-  }
+  methods: { convert }
 };
 </script>
