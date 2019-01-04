@@ -27,8 +27,8 @@
               v-for="(category, index) in categories"
               :key="index"
               class="text-grey-darkest cursor-pointer hover:bg-indigo-light hover:text-indigo-lightest"
-              :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark': chosenCategory.label === category.label, 'text-indigo-lightest': chosenCategory.label === category.label }"
-              @click="chosenCategory = (chosenCategory.label === category.label) ? chosenCategory = { label: null, income: null, total: null } : chosenCategory = category"
+              :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark text-indigo-lightest': matchesChosenCategory(category) }"
+              @click="toggleCategory(category)"
             >
               <td class="p-4">
                 {{ category.label }}
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="flex-1">
-      <template v-if="chosenCategory.label !== null">
+      <template v-if="hasChosenCategory()">
         <p class="font-bold uppercase text-xl text-grey-darker mb-5">
           Category {{ chosenCategory.label }}
         </p>
@@ -118,7 +118,18 @@ export default {
     })
   },
   methods: {
-    format
+    format,
+    hasChosenCategory() {
+      return this.chosenCategory.label !== null;
+    },
+    matchesChosenCategory(category) {
+      return this.chosenCategory.label === category.label;
+    },
+    toggleCategory(category) {
+      this.chosenCategory = this.matchesChosenCategory(category)
+        ? (this.chosenCategory = { label: null, income: null, total: null })
+        : (this.chosenCategory = category);
+    }
   }
 };
 </script>
