@@ -15,7 +15,12 @@ export default new Vuex.Store({
       value: null,
       errors: false
     },
-    entries: []
+    entries: [],
+    category: {
+      label: null,
+      income: null,
+      total: null
+    }
   },
   getters: {
     // outcome
@@ -74,6 +79,9 @@ export default new Vuex.Store({
     },
     updateEntries(state, value) {
       state.entries = value;
+    },
+    updateCategory(state, value) {
+      state.category = value;
     }
   },
   actions: {

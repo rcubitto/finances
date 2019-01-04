@@ -24,20 +24,20 @@
           </thead>
           <tbody>
             <tr
-              v-for="(category, index) in categories"
+              v-for="(_category, index) in categories"
               :key="index"
               class="text-grey-darkest cursor-pointer hover:bg-indigo-light hover:text-indigo-lightest"
-              :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark text-indigo-lightest': matchesChosenCategory(category) }"
-              @click="toggleCategory(category)"
+              :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark text-indigo-lightest': matchesChosenCategory(_category) }"
+              @click="toggleCategory(_category)"
             >
               <td class="p-4">
-                {{ category.label }}
+                {{ _category.label }}
               </td>
               <td class="text-right p-4">
-                {{ format(category.income).get() }}
+                {{ format(_category.income).get() }}
               </td>
               <td class="text-right p-4">
-                {{ format(category.total).get() }}
+                {{ format(_category.total).get() }}
               </td>
             </tr>
           </tbody>
@@ -47,12 +47,12 @@
     <div class="flex-1">
       <template v-if="hasChosenCategory()">
         <p class="font-bold uppercase text-xl text-grey-darker mb-5">
-          Category {{ chosenCategory.label }}
+          Category {{ category.label }}
         </p>
         <div class="flex mb-4">
           <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest mr-4 overflow-hidden shadow-md">
             <span class="text-2xl">
-              {{ format(chosenCategory.income).get() }}
+              {{ format(category.income).get() }}
             </span>
             <p class="text-indigo-lighter">
               Annual Gross Income AR$
@@ -60,7 +60,7 @@
           </div>
           <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest overflow-hidden shadow-md">
             <span class="text-2xl mb-4">
-              {{ format(chosenCategory.income / 12).get() }}
+              {{ format(category.income / 12).get() }}
             </span>
             <p class="text-indigo-lighter">
               Monthly Gross Income AR$
@@ -70,7 +70,7 @@
         <div class="flex">
           <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest mr-4 overflow-hidden shadow-md">
             <span class="text-2xl">
-              {{ format(chosenCategory.income / exchange).get() }}
+              {{ format(category.income / exchange).get() }}
             </span>
             <p class="text-teal-lighter">
               Annual Gross Income U$S
@@ -78,7 +78,7 @@
           </div>
           <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest overflow-hidden shadow-md">
             <span class="text-2xl">
-              {{ format(chosenCategory.income / 12 / exchange).get() }}
+              {{ format(category.income / 12 / exchange).get() }}
             </span>
             <p class="text-teal-lighter">
               Monthly Gross Income U$S
@@ -99,7 +99,6 @@ export default {
   components: { ArrowDownIcon },
   data() {
     return {
-      chosenCategory: { label: null, income: null, total: null },
       categories: [
         { label: "A", income: 138127.99, total: 1294.12 },
         { label: "B", income: 207191.98, total: 1447.06 },
@@ -115,20 +114,31 @@ export default {
   computed: {
     ...mapState({
       exchange: state => state.exchange.value
-    })
+    }),
+    category: {
+      get() {
+        return this.$store.state.category;
+      },
+      set(category) {
+        this.$store.commit("updateCategory", category);
+      }
+    }
   },
   methods: {
     format,
     hasChosenCategory() {
-      return this.chosenCategory.label !== null;
+      return this.category.label !== null;
     },
     matchesChosenCategory(category) {
-      return this.chosenCategory.label === category.label;
+      return this.category.label === category.label;
     },
     toggleCategory(category) {
-      this.chosenCategory = this.matchesChosenCategory(category)
-        ? (this.chosenCategory = { label: null, income: null, total: null })
-        : (this.chosenCategory = category);
+      this.$store.commit(
+        "updateCategory",
+        this.matchesChosenCategory(category)
+          ? { label: null, income: null, total: null }
+          : category
+      );
     }
   }
 };
