@@ -1,21 +1,12 @@
 <template>
   <div class="flex">
     <div class="flex-1 mr-10">
-      <div class="flex justify-between items-center">
-        <p class="text-grey-dark uppercase text-xs font-bold flex items-center mb-3">
-          <span class="mr-1">
-            Choose a category
-          </span>
-          <ArrowDownIcon />
-        </p>
-        <button
-          v-if="chosenCategory.label !== null"
-          class="mb-1 focus:outline-none uppercase text-xs font-bold rounded border p-2 border-red text-red hover:border-transparent hover:bg-red hover:text-white"
-          @click="chosenCategory = { label: null, income: null, total: null }"
-        >
-          Clear
-        </button>
-      </div>
+      <p class="text-grey-dark uppercase text-xs font-bold flex items-center mb-2">
+        <span class="mr-1">
+          Choose a category
+        </span>
+        <ArrowDownIcon />
+      </p>
       <div class="rounded overflow-hidden shadow">
         <table class="w-full">
           <thead>
@@ -37,7 +28,7 @@
               :key="index"
               class="text-grey-darkest cursor-pointer hover:bg-indigo-light hover:text-indigo-lightest"
               :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark': chosenCategory.label === category.label, 'text-indigo-lightest': chosenCategory.label === category.label }"
-              @click="chosenCategory = category"
+              @click="chosenCategory = (chosenCategory.label === category.label) ? chosenCategory = { label: null, income: null, total: null } : chosenCategory = category"
             >
               <td class="p-4">
                 {{ category.label }}
@@ -54,27 +45,47 @@
       </div>
     </div>
     <div class="flex-1">
-      <p class="font-bold uppercase text-grey-darker text-right mb-5">
-        Category {{ chosenCategory.label }}
-      </p>
-      <div class="flex">
-        <div class="flex-1 bg-indigo-light p-4 rounded text-indigo-lightest mr-4">
-          <span class="text-2xl">
-            {{ format(chosenCategory.income).get() }}
-          </span>
-          <p class="text-indigo-lighter">
-            Annual AR$
-          </p>
+      <template v-if="chosenCategory.label !== null">
+        <p class="font-bold uppercase text-xl text-grey-darker mb-5">
+          Category {{ chosenCategory.label }}
+        </p>
+        <div class="flex mb-4">
+          <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest mr-4 overflow-hidden shadow-md">
+            <span class="text-2xl">
+              {{ format(chosenCategory.income).get() }}
+            </span>
+            <p class="text-indigo-lighter">
+              Annual Gross Income AR$
+            </p>
+          </div>
+          <div class="flex-1 bg-indigo-light px-6 py-6 rounded text-indigo-lightest overflow-hidden shadow-md">
+            <span class="text-2xl mb-4">
+              {{ format(chosenCategory.income / 12).get() }}
+            </span>
+            <p class="text-indigo-lighter">
+              Monthly Gross Income AR$
+            </p>
+          </div>
         </div>
-        <div class="flex-1 bg-indigo-light p-4 rounded text-indigo-lightest">
-          <span class="text-2xl">
-            {{ format(chosenCategory.income / 12).get() }}
-          </span>
-          <p class="text-indigo-lighter">
-            Monthly AR$
-          </p>
+        <div class="flex">
+          <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest mr-4 overflow-hidden shadow-md">
+            <span class="text-2xl">
+              {{ format(chosenCategory.income / exchange).get() }}
+            </span>
+            <p class="text-teal-lighter">
+              Annual Gross Income U$S
+            </p>
+          </div>
+          <div class="flex-1 bg-teal-light px-6 py-6 rounded text-teal-lightest overflow-hidden shadow-md">
+            <span class="text-2xl">
+              {{ format(chosenCategory.income / 12 / exchange).get() }}
+            </span>
+            <p class="text-teal-lighter">
+              Monthly Gross Income U$S
+            </p>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
