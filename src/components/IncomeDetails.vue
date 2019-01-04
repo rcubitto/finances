@@ -135,7 +135,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import format from "../lib/Formatter";
+import format from "@/lib/Formatter";
 
 export default {
   data() {

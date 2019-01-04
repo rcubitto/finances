@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import IncomeInputs from "../components/IncomeInputs";
-import IncomeDetails from "../components/IncomeDetails";
+import IncomeInputs from "@/components/IncomeInputs";
+import IncomeDetails from "@/components/IncomeDetails";
 
 export default {
   components: { IncomeInputs, IncomeDetails }
