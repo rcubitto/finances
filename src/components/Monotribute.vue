@@ -93,7 +93,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import format from "@/lib/Formatter";
-import ArrowDownIcon from "@/components/shared/ArrowDownIcon";
+import ArrowDownIcon from "@/components/ArrowDownIcon";
 
 export default {
   components: { ArrowDownIcon },

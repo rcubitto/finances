@@ -84,7 +84,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import DollarIcon from "@/components/shared/DollarIcon";
+import DollarIcon from "@/components/DollarIcon";
 
 export default {
   components: { DollarIcon },

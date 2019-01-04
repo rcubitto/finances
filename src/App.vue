@@ -7,7 +7,7 @@
 
 <script>
 import "./assets/css/styles.css";
-import Header from "./components/layouts/Header";
+import Header from "@/components/Header";
 
 export default {
   name: "App",
