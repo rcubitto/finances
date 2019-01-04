@@ -5,6 +5,7 @@ Vue.use(Router);
 
 import Balance from "./views/Balance";
 import IncomeOutcome from "./views/IncomeOutcome";
+import AFIP from "./views/AFIP";
 
 export default new Router({
   routes: [
@@ -17,6 +18,11 @@ export default new Router({
       path: "/balance",
       name: "In / Out",
       component: IncomeOutcome
+    },
+    {
+      path: "/afip",
+      name: "AFIP",
+      component: AFIP
     }
   ]
 });
