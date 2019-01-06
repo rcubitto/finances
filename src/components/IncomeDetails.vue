@@ -212,7 +212,9 @@
   >
     Add an <span class="text-grey-darker font-bold">
       income
-    </span> and select a <span class="text-grey-darker font-bold">category</span> to see results...
+    </span> and select a <span class="text-grey-darker font-bold">
+      category
+    </span> to see results...
   </p>
 </template>
 
