@@ -41,6 +41,10 @@ class Converter {
     return this.get();
   }
 
+  toCurrency(currency) {
+    return currency === "USD" ? this.toUSD() : this.toARS();
+  }
+
   get() {
     return this.formatter ? this.formatter.format(this.value) : this.value;
   }
