@@ -4,7 +4,7 @@ import Router from "vue-router";
 Vue.use(Router);
 
 import Balance from "./views/Balance";
-import IncomeOutcome from "./views/IncomeOutcome";
+import InOutCome from "./views/InOutCome";
 import AFIP from "./views/AFIP";
 
 export default new Router({
@@ -17,7 +17,7 @@ export default new Router({
     {
       path: "/balance",
       name: "In / Out",
-      component: IncomeOutcome
+      component: InOutCome
     },
     {
       path: "/afip",
