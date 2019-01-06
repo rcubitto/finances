@@ -8,7 +8,9 @@
         ARS/USD
       </label>
       <div class="relative">
-        <DollarIcon />
+        <div class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker">
+          <DollarIcon size="6"/>
+        </div>
         <input
           id="exchange"
           v-model.number="exchange"
@@ -32,7 +34,9 @@
         Income [U$D]
       </label>
       <div class="flex relative">
-        <DollarIcon />
+        <div class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker">
+          <DollarIcon size="6" />
+        </div>
         <input
           id="income"
           ref="income"
