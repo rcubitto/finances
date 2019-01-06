@@ -1,22 +1,42 @@
 <template>
   <div
     v-if="income && exchange"
-    class="border-grey-lighter border-t-2 pt-6"
+    class="border-grey-lighter border-t-2 border-dashed pt-6 mt-6"
   >
-    <div class="flex items-center mb-6">
-      <div class="bg-indigo rounded-full w-10 h-5">
-        <button
-          class="bg-white focus:outline-none w-5 h-5 border rounded-full"
-          style="transition: all 200ms"
-          :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
-          @click="monthlyResults = ! monthlyResults"
-        />
+    <!-- Filters -->
+    <div class="flex mb-10">
+      <div class="flex items-center mr-6">
+        <div class="bg-teal rounded-full w-10 h-5">
+          <button
+            class="bg-white focus:outline-none w-5 h-5 border rounded-full"
+            style="transition: all 200ms"
+            :style="viewType === 'table' ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
+            @click="viewType = viewType === 'table' ? 'map' : 'table'"
+          />
+        </div>
+        <span class="text-grey-dark uppercase font-bold text-xs mx-2">
+          {{ viewType }}
+        </span>
       </div>
-      <span class="text-grey-dark uppercase font-bold text-xs mx-2">
-        {{ monthlyResults ? 'Per Month' : 'Per Year' }}
-      </span>
+      <div class="flex items-center mr-6">
+        <div class="bg-indigo rounded-full w-10 h-5">
+          <button
+            class="bg-white focus:outline-none w-5 h-5 border rounded-full"
+            style="transition: all 200ms"
+            :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
+            @click="monthlyResults = ! monthlyResults"
+          />
+        </div>
+        <span class="text-grey-dark uppercase font-bold text-xs mx-2">
+          {{ monthlyResults ? 'Per Month' : 'Per Year' }}
+        </span>
+      </div>
     </div>
-    <div class="rounded overflow-hidden shadow">
+    <!-- Table -->
+    <div
+      v-if="viewType === 'table'"
+      class="rounded overflow-hidden shadow"
+    >
       <table class="w-full">
         <thead>
           <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
@@ -124,6 +144,57 @@
         </tbody>
       </table>
     </div>
+    <!-- Diagram -->
+    <div
+      v-if="viewType === 'map'"
+      class="flex mb-10"
+    >
+      <Pill
+        color="indigo"
+        :title="convert(gross).toYear(!monthlyResults).get()"
+        subtitle="Gross Salary"
+      />
+      <DiscountStep
+        :label="`–${convert(payPalDiscount).toYear(!monthlyResults).get()} Fee`"
+      />
+      <Pill
+        color="blue"
+        :title="convert(payPalNet).toYear(!monthlyResults).get()"
+        subtitle="Paypal Account"
+      />
+      <DiscountStep label="After Transfer" />
+      <Pill
+        color="blue"
+        :title="convert(payPalNet - convert(maxAllowedByCategory, 'ARS').withoutFormat().toUSD() - nubiDiscount).toYear(!monthlyResults).toUSD()"
+        subtitle="PayPal Remaining"
+      />
+    </div>
+    <div
+      v-if="viewType === 'map'"
+      class="flex"
+    >
+      <Pill
+        color="teal"
+        :title="convert(convert(maxAllowedByCategory, 'ARS').withoutFormat().toUSD() + nubiDiscount).toUSD()"
+        subtitle="Transferable Amount"
+      />
+      <DiscountStep
+        :label="`+${convert(nubiDiscount).toYear(!monthlyResults).get()} Nubi`"
+      />
+      <Pill
+        color="blue"
+        :title="convert(net).toYear(!monthlyResults).get()"
+        subtitle="Bank Account"
+      />
+      <DiscountStep
+        :label="`–${convert(entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD')).toYear(!monthlyResults).get()} Expenses`"
+      />
+      <Pill
+        color="green"
+        :title="convert(net - entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD')).toYear(!monthlyResults).get()"
+        subtitle="Balance"
+      />
+    </div>
   </div>
   <p
     v-else
@@ -136,8 +207,11 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import convert from "@/lib/Converter";
+import Pill from "@/components/Pill";
+import DiscountStep from "@/components/DiscountStep";
 
 export default {
+  components: { Pill, DiscountStep },
   data() {
     return {
       monthlyResults: true,
@@ -148,7 +222,8 @@ export default {
       nubi: {
         percentage: 0.029,
         tax: 0.21
-      }
+      },
+      viewType: "table"
     };
   },
   computed: {
@@ -156,7 +231,8 @@ export default {
       exchange: state => state.exchange.value,
       income: state => state.income.value,
       margin: state => state.income.margin,
-      range: state => state.income.range
+      range: state => state.income.range,
+      maxAllowedByCategory: state => state.category.income / 12
     }),
     ...mapGetters(["entriesByRangeAndCurrencySum"]),
     gross() {
@@ -196,11 +272,14 @@ export default {
       }
     },
     net() {
-      if (this.margin === "net") {
-        return this.range === "yearly" ? this.income / 12 : this.income;
-      } else {
-        return this.payPalNet - this.nubiDiscount;
-      }
+      // if (this.margin === "net") {
+      //   return this.range === "yearly" ? this.income / 12 : this.income;
+      // } else {
+      //   return this.payPalNet - this.nubiDiscount;
+      // }
+      return convert(this.maxAllowedByCategory, "ARS")
+        .withoutFormat()
+        .toUSD();
     },
     total() {
       return 10;
