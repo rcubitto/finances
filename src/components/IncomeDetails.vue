@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="income && exchange"
+    v-if="income && exchange && monthlyRateByCategory"
     class="border-grey-lighter border-t-2 border-dashed pt-6 mt-6"
   >
     <!-- Filters -->
@@ -210,7 +210,9 @@
     v-else
     class="text-grey-dark mt-6"
   >
-    Add an income to see results...
+    Add an <span class="text-grey-darker font-bold">
+      income
+    </span> and select a <span class="text-grey-darker font-bold">category</span> to see results...
   </p>
 </template>
 
