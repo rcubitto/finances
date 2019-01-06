@@ -11,6 +11,11 @@ class Converter {
     });
   }
 
+  withoutFormat() {
+    this.formatter = null;
+    return this;
+  }
+
   toYear(condition) {
     if (condition) {
       this.value *= 12;
@@ -37,7 +42,7 @@ class Converter {
   }
 
   get() {
-    return this.formatter.format(this.value);
+    return this.formatter ? this.formatter.format(this.value) : this.value;
   }
 }
 
