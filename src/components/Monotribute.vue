@@ -34,10 +34,10 @@
                 {{ _category.label }}
               </td>
               <td class="text-right p-4">
-                {{ format(_category.income).get() }}
+                {{ convert(_category.income, "ARS").get() }}
               </td>
               <td class="text-right p-4">
-                {{ format(_category.total).get() }}
+                {{ convert(_category.total, "ARS").get() }}
               </td>
             </tr>
           </tbody>
@@ -52,13 +52,13 @@
         <div class="flex mb-4">
           <Pill
             color="indigo"
-            :title="format(category.income).get()"
+            :title="convert(category.income, 'ARS').get()"
             subtitle="Annual Gross Income AR$"
             extra-css="flex-1 mr-4"
           />
           <Pill
             color="indigo"
-            :title="format(category.income / 12).get()"
+            :title="convert(category.income / 12, 'ARS').get()"
             subtitle="Monthly Gross Income AR$"
             extra-css="flex-1"
           />
@@ -66,13 +66,13 @@
         <div class="flex">
           <Pill
             color="teal"
-            :title="format(category.income / exchange).get()"
+            :title="convert(category.income / exchange).get()"
             subtitle="Annual Gross Income U$S"
             extra-css="flex-1 mr-4"
           />
           <Pill
             color="teal"
-            :title="format(category.income / 12 / exchange).get()"
+            :title="convert(category.income / 12 / exchange).get()"
             subtitle="Monthly Gross Income U$S"
             extra-css="flex-1"
           />
@@ -84,7 +84,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import format from "@/lib/Formatter";
+import convert from "@/lib/Converter";
 import ArrowDownIcon from "@/components/ArrowDownIcon";
 import Pill from "@/components/Pill";
 
@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     ...mapActions(["syncCategory"]),
-    format,
+    convert,
     hasChosenCategory() {
       return this.category.label !== null;
     },

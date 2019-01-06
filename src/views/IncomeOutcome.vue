@@ -27,10 +27,10 @@
                 {{ entry.detail }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
+                {{ convert(entry.price, entry.currency).toUSD() }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "ARS" ? format(entry.price).get() : format(entry.price).toARS(exchange) }}
+                {{ convert(entry.price, entry.currency).toARS() }}
               </td>
             </tr>
             <tr class="text-grey-darkest font-bold bg-grey-light">
@@ -38,10 +38,10 @@
                 Total
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).get() }}
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).get() }}
               </td>
             </tr>
           </tbody>
@@ -75,10 +75,10 @@
                 {{ entry.detail }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
+                {{ convert(entry.price, entry.currency).toUSD() }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "ARS" ? format(entry.price) : format(entry.price).toARS(exchange) }}
+                {{ convert(entry.price, entry.currency).toARS() }}
               </td>
             </tr>
             <tr class="text-grey-darkest font-bold bg-grey-light">
@@ -86,10 +86,10 @@
                 Total
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "USD")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("outcome", "yearly", "USD")).get() }}
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("outcome", "yearly", "ARS")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("outcome", "yearly", "ARS")).get() }}
               </td>
             </tr>
           </tbody>
@@ -121,10 +121,10 @@
                 {{ entry.detail }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "USD" ? format(entry.price).get() : format(entry.price).toUSD(exchange) }}
+                {{ convert(entry.price, entry.currency).toUSD() }}
               </td>
               <td class="text-right p-4">
-                {{ entry.currency === "ARS" ? format(entry.price).get() : format(entry.price).toARS(exchange) }}
+                {{ convert(entry.price, entry.currency).toARS() }}
               </td>
             </tr>
             <tr class="text-grey-darkest font-bold bg-grey-light">
@@ -132,10 +132,10 @@
                 Total
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("income", "yearly", "USD")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("income", "yearly", "USD")).get() }}
               </td>
               <td class="text-right p-4">
-                {{ format(entriesByRangeAndCurrencySum("income", "yearly", "ARS")).get() }}
+                {{ convert(entriesByRangeAndCurrencySum("income", "yearly", "ARS")).get() }}
               </td>
             </tr>
           </tbody>
@@ -147,7 +147,7 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import format from "@/lib/Formatter";
+import convert from "@/lib/Converter";
 
 export default {
   computed: {
@@ -158,7 +158,7 @@ export default {
     ...mapGetters(["entriesByRange", "entriesByRangeAndCurrencySum"])
   },
   methods: {
-    format
+    convert
   }
 };
 </script>
