@@ -68,13 +68,13 @@
               PayPal Fee
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalDiscount).toYear(!monthlyResults).get() }}
+              {{ convert(payPalFee).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalDiscount).toYear(!monthlyResults).toARS() }}
+              {{ convert(payPalFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="text-grey-darkest">
+          <tr class="text-grey-darkest border-b-4">
             <td class="p-4">
               PayPal Account
             </td>
@@ -85,40 +85,52 @@
               {{ convert(payPalNet).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
+          <tr class="text-grey-darkest">
+            <td class="p-4">
+              Monotribute Limit [Bank Account]
+            </td>
+            <td class="text-right p-4">
+              {{ convert(monthlyRateByCategory, "ARS").toYear(!monthlyResults).toUSD() }}
+            </td>
+            <td class="text-right p-4">
+              {{ convert(monthlyRateByCategory, "ARS").toYear(!monthlyResults).toARS() }}
+            </td>
+          </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
             <td class="p-4">
               Nubi Fee
             </td>
             <td class="text-right p-4">
-              {{ convert(nubiDiscount).toYear(!monthlyResults).get() }}
+              {{ convert(nubiFee).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ convert(nubiDiscount).toYear(!monthlyResults).toARS() }}
+              {{ convert(nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
             <td class="p-4">
-              Subtotal Fees
+              To Transfer
             </td>
             <td class="text-right p-4">
-              {{ convert(gross - net).toYear(!monthlyResults).get() }}
+              {{ convert(convert(monthlyRateByCategory, "ARS").withoutFormat().toUSD() + nubiFee).toYear(!monthlyResults).get() }}
             </td>
             <td class="text-right p-4">
-              {{ convert(gross - net).toYear(!monthlyResults).toARS() }}
+              {{ convert(convert(monthlyRateByCategory, "ARS").withoutFormat().toUSD() + nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="bg-grey-lighter text-grey-darkest">
+          <tr class="bg-grey-lighter text-grey-darkest border-b-4">
             <td class="p-4">
-              Net Salary
+              PayPal Remaining
             </td>
             <td class="text-right p-4">
-              {{ convert(net).toYear(!monthlyResults).get() }}
+              {{ convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toUSD() }}
             </td>
             <td class="text-right p-4">
-              {{ convert(net).toYear(!monthlyResults).toARS() }}
+              {{ convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
           
+        
           <tr class="text-grey-darkest">
             <td class="p-4">
               Monthly Expense
@@ -155,7 +167,7 @@
         subtitle="Gross Salary"
       />
       <DiscountStep
-        :label="`–${convert(payPalDiscount).toYear(!monthlyResults).get()} Fee`"
+        :label="`–${convert(payPalFee).toYear(!monthlyResults).get()} Fee`"
       />
       <Pill
         color="blue"
@@ -165,7 +177,7 @@
       <DiscountStep label="After Transfer" />
       <Pill
         color="blue"
-        :title="convert(payPalNet - convert(maxAllowedByCategory, 'ARS').withoutFormat().toUSD() - nubiDiscount).toYear(!monthlyResults).toUSD()"
+        :title="convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toUSD()"
         subtitle="PayPal Remaining"
       />
     </div>
@@ -175,11 +187,11 @@
     >
       <Pill
         color="teal"
-        :title="convert(convert(maxAllowedByCategory, 'ARS').withoutFormat().toUSD() + nubiDiscount).toUSD()"
+        :title="convert(convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() + nubiFee).toUSD()"
         subtitle="Transferable Amount"
       />
       <DiscountStep
-        :label="`+${convert(nubiDiscount).toYear(!monthlyResults).get()} Nubi`"
+        :label="`+${convert(nubiFee).toYear(!monthlyResults).get()} Nubi`"
       />
       <Pill
         color="blue"
@@ -232,7 +244,7 @@ export default {
       income: state => state.income.value,
       margin: state => state.income.margin,
       range: state => state.income.range,
-      maxAllowedByCategory: state => state.category.income / 12
+      monthlyRateByCategory: state => state.category.income / 12
     }),
     ...mapGetters(["entriesByRangeAndCurrencySum"]),
     gross() {
@@ -244,7 +256,7 @@ export default {
         return this.range === "yearly" ? this.income / 12 : this.income;
       }
     },
-    payPalDiscount() {
+    payPalFee() {
       if (this.margin === "net") {
         return this.gross * this.paypal.percentage - this.paypal.fixed;
       } else {
@@ -258,10 +270,10 @@ export default {
           (1 - this.nubi.percentage - this.nubi.percentage * this.nubi.tax)
         );
       } else {
-        return this.gross - this.payPalDiscount;
+        return this.gross - this.payPalFee;
       }
     },
-    nubiDiscount() {
+    nubiFee() {
       if (this.margin === "net") {
         return this.payPalNet - this.net;
       } else {
@@ -272,17 +284,9 @@ export default {
       }
     },
     net() {
-      // if (this.margin === "net") {
-      //   return this.range === "yearly" ? this.income / 12 : this.income;
-      // } else {
-      //   return this.payPalNet - this.nubiDiscount;
-      // }
-      return convert(this.maxAllowedByCategory, "ARS")
+      return convert(this.monthlyRateByCategory, "ARS")
         .withoutFormat()
         .toUSD();
-    },
-    total() {
-      return 10;
     }
   },
   methods: { convert }
