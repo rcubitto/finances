@@ -85,7 +85,7 @@
               {{ convert(payPalNet).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="text-grey-darkest">
+          <tr class="bg-grey-lighter  text-grey-darkest">
             <td class="p-4">
               Monotribute Limit [Bank Account]
             </td>
@@ -96,7 +96,7 @@
               {{ convert(monthlyRateByCategory, "ARS").toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="bg-grey-lighter text-grey-darkest">
+          <tr class="text-grey-darkest">
             <td class="p-4">
               Nubi Fee
             </td>
@@ -107,7 +107,7 @@
               {{ convert(nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="text-grey-darkest">
+          <tr class="bg-grey-lighter  text-grey-darkest">
             <td class="p-4">
               To Transfer
             </td>
@@ -118,7 +118,7 @@
               {{ convert(convert(monthlyRateByCategory, "ARS").withoutFormat().toUSD() + nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          <tr class="bg-grey-lighter text-grey-darkest border-b-4">
+          <tr class="bg-grey-light text-grey-darkest font-bold border-b-4">
             <td class="p-4">
               PayPal Remaining
             </td>
@@ -129,8 +129,6 @@
               {{ convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toARS() }}
             </td>
           </tr>
-          
-        
           <tr class="text-grey-darkest">
             <td class="p-4">
               Monthly Expense
@@ -144,7 +142,7 @@
           </tr>
           <tr class="bg-grey-light text-grey-darkest font-bold">
             <td class="p-4">
-              Balance
+              Bank Account Remaining
             </td>
             <td class="text-right p-4">
               {{ convert(net - entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).toYear(!monthlyResults).get() }}
