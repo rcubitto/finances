@@ -4,7 +4,7 @@
     class="border-grey-lighter border-t-2 border-dashed pt-6 mt-6"
   >
     <!-- Filters -->
-    <div class="flex mb-10">
+    <div class="flex mb-6">
       <div class="flex items-center mr-6">
         <div class="bg-teal rounded-full w-10 h-5">
           <button
