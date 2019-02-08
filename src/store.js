@@ -32,21 +32,19 @@ export default new Vuex.Store({
     entriesByRangeToUSD: (state, getters) => (type, range) => {
       return getters
         .entriesByRange(type, range)
-        .map(
-          entry =>
-            entry.currency === "USD"
-              ? entry.price
-              : entry.price / state.exchange.value
+        .map(entry =>
+          entry.currency === "USD"
+            ? entry.price
+            : entry.price / state.exchange.value
         );
     },
     entriesByRangeToARS: (state, getters) => (type, range) => {
       return getters
         .entriesByRange(type, range)
-        .map(
-          entry =>
-            entry.currency === "ARS"
-              ? entry.price
-              : entry.price * state.exchange.value
+        .map(entry =>
+          entry.currency === "ARS"
+            ? entry.price
+            : entry.price * state.exchange.value
         );
     },
     entriesByRangeAndCurrencySum: (state, getters) => (

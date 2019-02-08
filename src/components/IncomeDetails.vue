@@ -10,7 +10,11 @@
           <button
             class="bg-white focus:outline-none w-5 h-5 border rounded-full"
             style="transition: all 200ms"
-            :style="viewType === 'table' ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
+            :style="
+              viewType === 'table'
+                ? 'transform: translateX(0%)'
+                : 'transform: translateX(100%)'
+            "
             @click="viewType = viewType === 'table' ? 'map' : 'table'"
           />
         </div>
@@ -23,23 +27,26 @@
           <button
             class="bg-white focus:outline-none w-5 h-5 border rounded-full"
             style="transition: all 200ms"
-            :style="monthlyResults ? 'transform: translateX(0%)' : 'transform: translateX(100%)'"
-            @click="monthlyResults = ! monthlyResults"
+            :style="
+              monthlyResults
+                ? 'transform: translateX(0%)'
+                : 'transform: translateX(100%)'
+            "
+            @click="monthlyResults = !monthlyResults"
           />
         </div>
         <span class="text-grey-dark uppercase font-bold text-xs mx-2">
-          {{ monthlyResults ? 'Per Month' : 'Per Year' }}
+          {{ monthlyResults ? "Per Month" : "Per Year" }}
         </span>
       </div>
     </div>
     <!-- Table -->
-    <div
-      v-if="viewType === 'table'"
-      class="rounded overflow-hidden shadow"
-    >
+    <div v-if="viewType === 'table'" class="rounded overflow-hidden shadow">
       <table class="w-full">
         <thead>
-          <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
+          <tr
+            class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
+          >
             <th class="text-left p-4">
               Description
             </th>
@@ -57,10 +64,18 @@
               Gross Salary
             </td>
             <td class="text-right p-4">
-              {{ convert(gross).toYear(!monthlyResults).get() }}
+              {{
+                convert(gross)
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(gross).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(gross)
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="bg-grey-lighter text-grey-darkest">
@@ -68,10 +83,18 @@
               PayPal Fee
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalFee).toYear(!monthlyResults).get() }}
+              {{
+                convert(payPalFee)
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalFee).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(payPalFee)
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="text-grey-darkest border-b-4">
@@ -79,10 +102,18 @@
               PayPal Account
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalNet).toYear(!monthlyResults).get() }}
+              {{
+                convert(payPalNet)
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalNet).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(payPalNet)
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="bg-grey-lighter  text-grey-darkest">
@@ -90,10 +121,18 @@
               Monotribute Limit [Bank Account]
             </td>
             <td class="text-right p-4">
-              {{ convert(monthlyRateByCategory, "ARS").toYear(!monthlyResults).toUSD() }}
+              {{
+                convert(monthlyRateByCategory, "ARS")
+                  .toYear(!monthlyResults)
+                  .toUSD()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(monthlyRateByCategory, "ARS").toYear(!monthlyResults).toARS() }}
+              {{
+                convert(monthlyRateByCategory, "ARS")
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
@@ -101,10 +140,18 @@
               Nubi Fee
             </td>
             <td class="text-right p-4">
-              {{ convert(nubiFee).toYear(!monthlyResults).get() }}
+              {{
+                convert(nubiFee)
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(nubiFee).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(nubiFee)
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="bg-grey-lighter  text-grey-darkest">
@@ -112,10 +159,26 @@
               To Transfer
             </td>
             <td class="text-right p-4">
-              {{ convert(convert(monthlyRateByCategory, "ARS").withoutFormat().toUSD() + nubiFee).toYear(!monthlyResults).get() }}
+              {{
+                convert(
+                  convert(monthlyRateByCategory, "ARS")
+                    .withoutFormat()
+                    .toUSD() + nubiFee
+                )
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(convert(monthlyRateByCategory, "ARS").withoutFormat().toUSD() + nubiFee).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(
+                  convert(monthlyRateByCategory, "ARS")
+                    .withoutFormat()
+                    .toUSD() + nubiFee
+                )
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="bg-grey-light text-grey-darkest font-bold border-b-4">
@@ -123,10 +186,30 @@
               PayPal Remaining
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toUSD() }}
+              {{
+                convert(
+                  payPalNet -
+                    convert(monthlyRateByCategory, "ARS")
+                      .withoutFormat()
+                      .toUSD() -
+                    nubiFee
+                )
+                  .toYear(!monthlyResults)
+                  .toUSD()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toARS() }}
+              {{
+                convert(
+                  payPalNet -
+                    convert(monthlyRateByCategory, "ARS")
+                      .withoutFormat()
+                      .toUSD() -
+                    nubiFee
+                )
+                  .toYear(!monthlyResults)
+                  .toARS()
+              }}
             </td>
           </tr>
           <tr class="text-grey-darkest">
@@ -134,10 +217,22 @@
               Monthly Expense
             </td>
             <td class="text-right p-4">
-              {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).toYear(!monthlyResults).get() }}
+              {{
+                convert(
+                  entriesByRangeAndCurrencySum("outcome", "monthly", "USD")
+                )
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert(entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).toYear(!monthlyResults).get() }}
+              {{
+                convert(
+                  entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")
+                )
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
           </tr>
           <tr class="bg-grey-light text-grey-darkest font-bold">
@@ -145,79 +240,134 @@
               Bank Account Remaining
             </td>
             <td class="text-right p-4">
-              {{ convert(net - entriesByRangeAndCurrencySum("outcome", "monthly", "USD")).toYear(!monthlyResults).get() }}
+              {{
+                convert(
+                  net -
+                    entriesByRangeAndCurrencySum("outcome", "monthly", "USD")
+                )
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
             <td class="text-right p-4">
-              {{ convert((net * exchange) - entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")).toYear(!monthlyResults).get() }}
+              {{
+                convert(
+                  net * exchange -
+                    entriesByRangeAndCurrencySum("outcome", "monthly", "ARS")
+                )
+                  .toYear(!monthlyResults)
+                  .get()
+              }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <!-- Diagram -->
-    <div
-      v-if="viewType === 'map'"
-      class="flex mb-10"
-    >
+    <div v-if="viewType === 'map'" class="flex mb-10">
       <Pill
         color="indigo"
-        :title="convert(gross).toYear(!monthlyResults).get()"
+        :title="
+          convert(gross)
+            .toYear(!monthlyResults)
+            .get()
+        "
         subtitle="Gross Salary"
       />
       <DiscountStep
-        :label="`–${convert(payPalFee).toYear(!monthlyResults).get()} Fee`"
+        :label="
+          `–${convert(payPalFee)
+            .toYear(!monthlyResults)
+            .get()} Fee`
+        "
       />
       <Pill
         color="blue"
-        :title="convert(payPalNet).toYear(!monthlyResults).get()"
+        :title="
+          convert(payPalNet)
+            .toYear(!monthlyResults)
+            .get()
+        "
         subtitle="Paypal Account"
       />
       <DiscountStep label="After Transfer" />
       <Pill
         color="blue"
-        :title="convert(payPalNet - convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() - nubiFee).toYear(!monthlyResults).toUSD()"
+        :title="
+          convert(
+            payPalNet -
+              convert(monthlyRateByCategory, 'ARS')
+                .withoutFormat()
+                .toUSD() -
+              nubiFee
+          )
+            .toYear(!monthlyResults)
+            .toUSD()
+        "
         subtitle="PayPal Remaining"
       />
     </div>
-    <div
-      v-if="viewType === 'map'"
-      class="flex"
-    >
+    <div v-if="viewType === 'map'" class="flex">
       <Pill
         color="teal"
-        :title="convert(convert(monthlyRateByCategory, 'ARS').withoutFormat().toUSD() + nubiFee).toUSD()"
+        :title="
+          convert(
+            convert(monthlyRateByCategory, 'ARS')
+              .withoutFormat()
+              .toUSD() + nubiFee
+          ).toUSD()
+        "
         subtitle="Transferable Amount"
       />
       <DiscountStep
-        :label="`+${convert(nubiFee).toYear(!monthlyResults).get()} Nubi`"
+        :label="
+          `+${convert(nubiFee)
+            .toYear(!monthlyResults)
+            .get()} Nubi`
+        "
       />
       <Pill
         color="blue"
-        :title="convert(net).toYear(!monthlyResults).get()"
+        :title="
+          convert(net)
+            .toYear(!monthlyResults)
+            .get()
+        "
         subtitle="Bank Account"
       />
       <DiscountStep
-        :label="`–${convert(entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD')).toYear(!monthlyResults).get()} Expenses`"
+        :label="
+          `–${convert(entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD'))
+            .toYear(!monthlyResults)
+            .get()} Expenses`
+        "
       />
       <Pill
         color="green"
-        :title="convert(net - entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD')).toYear(!monthlyResults).get()"
+        :title="
+          convert(
+            net - entriesByRangeAndCurrencySum('outcome', 'monthly', 'USD')
+          )
+            .toYear(!monthlyResults)
+            .get()
+        "
         subtitle="Balance"
       />
     </div>
   </div>
-  <p
-    v-else
-    class="text-grey-dark mt-6"
-  >
-    Add an <button class="text-grey-darker font-bold">
+  <p v-else class="text-grey-dark mt-6">
+    Add an
+    <button class="text-grey-darker font-bold">
       income
-    </button> and select a <RouterLink
+    </button>
+    and select a
+    <RouterLink
       to="/afip"
       class="text-grey-darker font-bold no-underline hover:text-grey-darkest"
     >
       category
-    </RouterLink> to see results...
+    </RouterLink>
+    to see results...
   </p>
 </template>
 

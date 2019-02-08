@@ -8,19 +8,21 @@
         ARS/USD
       </label>
       <div class="relative">
-        <div class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker">
-          <DollarIcon size="6"/>
+        <div
+          class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker"
+        >
+          <DollarIcon size="6" />
         </div>
         <input
           id="exchange"
           v-model.number="exchange"
           class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          :class="{ 'border-red': exchangeHasErrors && ! exchange }"
+          :class="{ 'border-red': exchangeHasErrors && !exchange }"
           type="number"
-        >
+        />
       </div>
       <p
-        v-if="exchangeHasErrors && ! exchange"
+        v-if="exchangeHasErrors && !exchange"
         class="text-red text-xs italic mt-1"
       >
         An error has occurred, please fill this field manually.
@@ -34,7 +36,9 @@
         Income [U$D]
       </label>
       <div class="flex relative">
-        <div class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker">
+        <div
+          class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker"
+        >
           <DollarIcon size="6" />
         </div>
         <input
@@ -44,43 +48,36 @@
           autofocus
           class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
           type="number"
-        >
+        />
       </div>
     </div>
     <div class="flex flex-col justify-center mr-6">
-      <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
+      <label
+        class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold"
+      >
         <input
           v-model="range"
           type="radio"
           value="monthly"
           class="mr-1"
-        >Monthly
+        />Monthly
       </label>
-      <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2">
-        <input
-          v-model="range"
-          type="radio"
-          value="yearly"
-          class="mr-1"
-        >Yearly
+      <label
+        class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2"
+      >
+        <input v-model="range" type="radio" value="yearly" class="mr-1" />Yearly
       </label>
     </div>
     <div class="flex flex-col justify-center">
-      <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold">
-        <input
-          v-model="margin"
-          type="radio"
-          value="gross"
-          class="mr-1"
-        >Gross
+      <label
+        class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold"
+      >
+        <input v-model="margin" type="radio" value="gross" class="mr-1" />Gross
       </label>
-      <label class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2">
-        <input
-          v-model="margin"
-          type="radio"
-          value="net"
-          class="mr-1"
-        >Net
+      <label
+        class="cursor-pointer uppercase tracking-wide text-grey-darker text-xs font-bold mt-2"
+      >
+        <input v-model="margin" type="radio" value="net" class="mr-1" />Net
       </label>
     </div>
   </div>

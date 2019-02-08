@@ -1,7 +1,9 @@
 <template>
   <div class="flex">
     <div class="flex-1 mr-10">
-      <p class="text-grey-dark uppercase text-xs font-bold flex items-center mb-2">
+      <p
+        class="text-grey-dark uppercase text-xs font-bold flex items-center mb-2"
+      >
         <span class="mr-1">
           Choose a category
         </span>
@@ -10,7 +12,9 @@
       <div class="rounded overflow-hidden shadow">
         <table class="w-full">
           <thead>
-            <tr class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold">
+            <tr
+              class="bg-grey-lighter border-b-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
+            >
               <th class="text-left p-4">
                 Category
               </th>
@@ -27,7 +31,12 @@
               v-for="(_category, index) in categories"
               :key="index"
               class="text-grey-darkest cursor-pointer hover:bg-indigo-light hover:text-indigo-lightest"
-              :class="{ 'bg-grey-lighter': index % 2 === 1, 'bg-indigo-dark text-indigo-lightest': matchesChosenCategory(_category) }"
+              :class="{
+                'bg-grey-lighter': index % 2 === 1,
+                'bg-indigo-dark text-indigo-lightest': matchesChosenCategory(
+                  _category
+                )
+              }"
               @click="toggleCategory(_category)"
             >
               <td class="p-4">

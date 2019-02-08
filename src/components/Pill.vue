@@ -2,21 +2,11 @@
   <div :class="css">
     <slot>
       <div class="flex justify-between items-center">
-        <div
-          v-if="title || subtitle"
-          class="flex flex-col"
-        >
-          <p
-            v-if="title"
-            class="text-2xl"
-            :class="`text-${color}-lightest`"
-          >
+        <div v-if="title || subtitle" class="flex flex-col">
+          <p v-if="title" class="text-2xl" :class="`text-${color}-lightest`">
             {{ title }}
           </p>
-          <span
-            v-if="subtitle"
-            :class="`text-${color}-lighter`"
-          >
+          <span v-if="subtitle" :class="`text-${color}-lighter`">
             {{ subtitle }}
           </span>
         </div>

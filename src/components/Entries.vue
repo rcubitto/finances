@@ -2,10 +2,12 @@
   <div :class="css">
     <table class="w-full">
       <thead>
-        <tr :class="`bg-${color}-lightest border-b-4 border-${color}-lighter uppercase text-${color}-light tracking-wide text-xs font-bold`">
-          <th class="text-left p-4">
-            Description → [{{ range }}]
-          </th>
+        <tr
+          :class="
+            `bg-${color}-lightest border-b-4 border-${color}-lighter uppercase text-${color}-light tracking-wide text-xs font-bold`
+          "
+        >
+          <th class="text-left p-4">Description → [{{ range }}]</th>
           <th class="text-right p-4">
             U$S
           </th>
