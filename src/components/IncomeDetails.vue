@@ -210,11 +210,14 @@
     v-else
     class="text-grey-dark mt-6"
   >
-    Add an <span class="text-grey-darker font-bold">
+    Add an <button class="text-grey-darker font-bold">
       income
-    </span> and select a <span class="text-grey-darker font-bold">
+    </button> and select a <RouterLink
+      to="/afip"
+      class="text-grey-darker font-bold no-underline hover:text-grey-darkest"
+    >
       category
-    </span> to see results...
+    </RouterLink> to see results...
   </p>
 </template>
 
