@@ -4,7 +4,7 @@ import Router from "vue-router";
 Vue.use(Router);
 
 import Balance from "./views/Balance";
-import InOutCome from "./views/InOutCome";
+import Entries from "./views/Entries";
 import AFIP from "./views/AFIP";
 
 export default new Router({
@@ -15,9 +15,9 @@ export default new Router({
       component: Balance
     },
     {
-      path: "/balance",
-      name: "In / Out",
-      component: InOutCome
+      path: "/entries",
+      name: "Entries",
+      component: Entries
     },
     {
       path: "/afip",

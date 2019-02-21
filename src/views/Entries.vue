@@ -1,18 +1,18 @@
 <template>
   <div class="container mx-auto mt-6 flex">
     <div class="flex-1 mr-10">
-      <Entries
+      <EntriesTable
         :entries="entriesByRange('outcome', 'monthly')"
         range="monthly"
       />
     </div>
     <div class="flex-1 flex flex-col">
-      <Entries
+      <EntriesTable
         :entries="entriesByRange('outcome', 'yearly')"
         range="yearly"
         extra-css="mb-10"
       />
-      <Entries
+      <EntriesTable
         :entries="entriesByRange('income', 'yearly')"
         range="yearly"
         color="indigo"
@@ -23,10 +23,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Entries from "@/components/Entries";
+import EntriesTable from "@/components/EntriesTable";
 
 export default {
-  components: { Entries },
+  components: { EntriesTable },
   computed: {
     ...mapGetters(["entriesByRange"])
   }
