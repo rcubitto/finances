@@ -108,31 +108,25 @@ export default new Vuex.Store({
           console.log("Error getting documents", err);
         });
     },
-    // Add entry to firestore and sync with store
-    // addEntry({ state, commit }, entry, callback = () => {}) {
-    addEntry({ state, commit }, callback = () => {}) {
-      // TODO
-      // const entry = {
-      //   type: "foo",
-      //   description: "foo",
-      //   currency: "foo",
-      //   amount: "foo",
-      //   range: "foo"
-      // };
-      //
-      // db.collection("entries")
-      //   .add(entry)
-      //   .then(doc => {
-      //     commit("updateEntries", [
-      //       ...state.entries,
-      //       { _id: doc.id, ...entry }
-      //     ]);
-      //     console.log("Document written with ID: ", doc.id);
-      //     callback();
-      //   })
-      //   .catch(err => {
-      //     console.log("Error adding document: ", err);
-      //   });
+    /**
+     * Persist entry into database and sync with store.
+     *
+     * @param entry
+     * @returns {Promise<firebase.firestore.DocumentReference | never>}
+     */
+    addEntry({ state, commit }, entry) {
+      return db
+        .collection("entries")
+        .add(entry)
+        .then(doc => {
+          commit("updateEntries", [
+            ...state.entries,
+            { _id: doc.id, ...entry }
+          ]);
+        })
+        .catch(err => {
+          console.log("Error adding document: ", err);
+        });
     },
     syncCategory({ state, commit }, category) {
       commit("updateCategory", category);

@@ -29,6 +29,7 @@
               <select
                 class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
                 id="type"
+                v-model="model.type"
               >
                 <option value="income">Income</option>
                 <option value="outcome">Outcome</option>
@@ -59,9 +60,10 @@
               <select
                 class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
                 id="range"
+                v-model="model.range"
               >
-                <option value="income">Monthly</option>
-                <option value="outcome">Yearly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
               </select>
               <div
                 class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
@@ -90,6 +92,7 @@
           id="description"
           class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
           type="text"
+          v-model="model.description"
         />
         <!-- Amount & Currency -->
         <div class="flex">
@@ -98,12 +101,13 @@
               class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-8"
               for="amount"
             >
-              Amount
+              Amount (in cents)
             </label>
             <input
               id="amount"
               class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
               type="number"
+              v-model="model.amount"
             />
           </div>
           <div class="flex-1">
@@ -117,9 +121,10 @@
               <select
                 class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
                 id="currency"
+                v-model="model.currency"
               >
-                <option value="ars">ARS</option>
-                <option value="usd">USD</option>
+                <option value="ARS">ARS</option>
+                <option value="USD">USD</option>
               </select>
               <div
                 class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
@@ -141,7 +146,8 @@
         <div class="flex mt-8">
           <button
             class="flex-1 mr-4 bg-indigo hover:bg-indigo-light text-white uppercase text-xs pb-2 pt-3 px-4 border-b-4 border-indigo-dark hover:border-indigo rounded"
-            @click="addEntry"
+            :class="{ 'cursor-not-allowed opacity-50': !allFieldsCompleted }"
+            @click="submit()"
           >
             Add Entry
           </button>
@@ -158,15 +164,30 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
-      show: false
+      show: false,
+      model: {
+        currency: null,
+        description: null,
+        amount: null,
+        range: null,
+        type: null
+      }
     };
   },
+  computed: {
+    allFieldsCompleted() {
+      return Object.values(this.model).every(val => val !== null && val !== "");
+    }
+  },
   methods: {
-    addEntry() {
-      //
+    ...mapActions(["addEntry"]),
+    submit() {
+      this.addEntry(this.model, 123).then(() => (this.show = false));
     }
   }
 };
