@@ -146,7 +146,10 @@
         <div class="flex mt-8">
           <button
             class="flex-1 mr-4 bg-indigo hover:bg-indigo-light text-white uppercase text-xs pb-2 pt-3 px-4 border-b-4 border-indigo-dark hover:border-indigo rounded"
-            :class="{ 'cursor-not-allowed opacity-50': !allFieldsCompleted }"
+            :class="{
+              'cursor-not-allowed opacity-50': !allFieldsCompleted,
+              spinner: busy
+            }"
             @click="submit()"
           >
             Add Entry
@@ -170,6 +173,7 @@ export default {
   data() {
     return {
       show: false,
+      busy: false,
       model: {
         currency: null,
         description: null,
@@ -187,7 +191,11 @@ export default {
   methods: {
     ...mapActions(["addEntry"]),
     submit() {
-      this.addEntry(this.model, 123).then(() => (this.show = false));
+      this.busy = true;
+      this.addEntry(this.model, 123).then(() => {
+        this.show = false;
+        this.busy = false;
+      });
     }
   }
 };
