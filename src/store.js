@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 
+import db from "@/lib/Database";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -89,14 +91,48 @@ export default new Vuex.Store({
         .then(({ data: { libre } }) => commit("updateExchange", Number(libre)))
         .catch(() => commit("flagExchangeErrors"));
     },
+    // Fetch all entries from firestore DB
     fetchEntries({ commit }) {
-      setTimeout(
-        () =>
-          import("./payload.json").then(({ entries }) => {
-            commit("updateEntries", entries);
-          }),
-        500
-      ); // delay half a second so that Vue DevTools catches the commit.
+      db.collection("entries")
+        .get()
+        .then(snapshot => {
+          commit(
+            "updateEntries",
+            snapshot.docs.map(doc => ({
+              _id: doc.id,
+              ...doc.data()
+            }))
+          );
+        })
+        .catch(err => {
+          console.log("Error getting documents", err);
+        });
+    },
+    // Add entry to firestore and sync with store
+    // addEntry({ state, commit }, entry, callback = () => {}) {
+    addEntry({ state, commit }, callback = () => {}) {
+      // TODO
+      // const entry = {
+      //   type: "foo",
+      //   description: "foo",
+      //   currency: "foo",
+      //   amount: "foo",
+      //   range: "foo"
+      // };
+      //
+      // db.collection("entries")
+      //   .add(entry)
+      //   .then(doc => {
+      //     commit("updateEntries", [
+      //       ...state.entries,
+      //       { _id: doc.id, ...entry }
+      //     ]);
+      //     console.log("Document written with ID: ", doc.id);
+      //     callback();
+      //   })
+      //   .catch(err => {
+      //     console.log("Error adding document: ", err);
+      //   });
     },
     syncCategory({ state, commit }, category) {
       commit("updateCategory", category);
