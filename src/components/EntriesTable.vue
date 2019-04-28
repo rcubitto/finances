@@ -24,13 +24,13 @@
           :class="{ 'bg-grey-lighter': index % 2 === 1 }"
         >
           <td class="p-4">
-            {{ entry.detail }}
+            {{ entry.description }}
           </td>
           <td class="text-right p-4">
-            {{ convert(entry.price, entry.currency).toUSD() }}
+            {{ convert(entry.amount, entry.currency).toUSD() }}
           </td>
           <td class="text-right p-4">
-            {{ convert(entry.price, entry.currency).toARS() }}
+            {{ convert(entry.amount, entry.currency).toARS() }}
           </td>
         </tr>
         <tr class="text-grey-darkest font-bold bg-grey-light">
@@ -81,7 +81,7 @@ export default {
     entriesSum(currency) {
       return this.entries
         .map(entry =>
-          convert(entry.price, entry.currency)
+          convert(entry.amount, entry.currency)
             .withoutFormat()
             .toCurrency(currency)
         )
