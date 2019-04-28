@@ -150,6 +150,7 @@
               'cursor-not-allowed opacity-50': !allFieldsCompleted,
               spinner: busy
             }"
+            :disabled="!allFieldsCompleted"
             @click="submit()"
           >
             Add Entry
