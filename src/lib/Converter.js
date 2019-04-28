@@ -1,8 +1,8 @@
 import store from "@/store";
 
 class Converter {
-  constructor(value, currency) {
-    this.value = value;
+  constructor(cents, currency) {
+    this.cents = cents;
     this.currency = currency;
     this.formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -18,25 +18,25 @@ class Converter {
 
   toYear(condition) {
     if (condition) {
-      this.value *= 12;
+      this.cents *= 12;
     }
     return this;
   }
 
   toUSD() {
-    this.value =
+    this.cents =
       this.currency === "USD"
-        ? this.value
-        : this.value / store.state.exchange.value;
+        ? this.cents
+        : this.cents / store.state.exchange.value;
 
     return this.get();
   }
 
   toARS() {
-    this.value =
+    this.cents =
       this.currency === "ARS"
-        ? this.value
-        : this.value * store.state.exchange.value;
+        ? this.cents
+        : this.cents * store.state.exchange.value;
 
     return this.get();
   }
@@ -46,7 +46,9 @@ class Converter {
   }
 
   get() {
-    return this.formatter ? this.formatter.format(this.value) : this.value;
+    return this.formatter
+      ? this.formatter.format(this.cents / 100)
+      : this.cents / 100;
   }
 }
 
