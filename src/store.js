@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-import reject from "lodash/reject";
+import _ from "lodash";
 
 import db from "@/lib/Database";
 
@@ -109,12 +109,7 @@ export default new Vuex.Store({
           console.log("Error getting documents", err);
         });
     },
-    /**
-     * Persist entry into database and sync with store.
-     *
-     * @param entry
-     * @returns {Promise<firebase.firestore.DocumentReference | never>}
-     */
+
     addEntry({ state, commit }, entry) {
       return db
         .collection("entries")
@@ -129,16 +124,33 @@ export default new Vuex.Store({
           console.log("Error adding document: ", err);
         });
     },
+
+    updateEntry({ state, commit }, entry) {
+      return db
+        .collection("entries")
+        .doc(entry._id)
+        .update(_.omit(entry, "_id"))
+        .then(() => {
+          const index = _.findIndex(state.entries, ["_id", entry._id]);
+          const updatedEntries = _.clone(state.entries);
+          updatedEntries[index] = entry;
+          commit("updateEntries", updatedEntries);
+        })
+        .catch(err => {
+          console.log("Error updating document: ", err);
+        });
+    },
+
     deleteEntry({ state, commit }, entry) {
       return db
         .collection("entries")
         .doc(entry._id)
         .delete()
-        .then(_ => {
-          commit("updateEntries", reject(state.entries, ["_id", entry._id]));
+        .then(() => {
+          commit("updateEntries", _.reject(state.entries, ["_id", entry._id]));
         })
         .catch(err => {
-          console.log("Error adding document: ", err);
+          console.log("Error deleting document: ", err);
         });
     },
     syncCategory({ state, commit }, category) {

@@ -33,10 +33,34 @@
           <td class="text-right p-4">
             {{ convert(entry.amount, entry.currency).toARS() }}
           </td>
-          <td>
+          <td class="flex justify-center items-center p-4">
+            <button
+              @click="editEntry(entry)"
+              class="flex justify-center items-center focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="w-5"
+              >
+                <path
+                  class="text-blue-light fill-current"
+                  d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z"
+                />
+                <rect
+                  width="20"
+                  height="2"
+                  x="2"
+                  y="20"
+                  class="text-blue-dark fill-current"
+                  rx="1"
+                />
+              </svg>
+            </button>
+
             <button
               @click="deleteEntry(entry)"
-              class="w-5 flex justify-center items-center focus:outline-none"
+              class="flex justify-center items-center focus:outline-none"
               :class="deleting == entry._id ? 'spinner' : ''"
             >
               <svg
@@ -71,6 +95,7 @@
         </tr>
       </tbody>
     </table>
+    <EntryModal ref="modal" />
   </div>
 </template>
 
@@ -78,8 +103,10 @@
 import convert from "@/lib/Converter";
 import money from "@/lib/Money";
 import _ from "lodash";
+import EntryModal from "@/components/EntryModal";
 
 export default {
+  components: { EntryModal },
   props: {
     entries: {
       type: Array,
@@ -130,6 +157,9 @@ export default {
   },
   methods: {
     convert,
+    editEntry(entry) {
+      this.$refs.modal.open(entry);
+    },
     deleteEntry(entry) {
       this.deleting = entry._id;
       this.$emit("deleteEntry", entry);

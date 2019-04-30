@@ -146,11 +146,11 @@
           :disabled="!allFieldsCompleted"
           @click="submit()"
         >
-          Add Entry
+          {{ this.mode === "create" ? "Add" : "Update" }} Entry
         </button>
         <button
           class="flex-1 border-red-light border bg-transparent text-red-light hover:bg-red-light hover:text-white uppercase text-xs pb-2 pt-3 px-4 rounded"
-          @click="show = false"
+          @click="close()"
         >
           Cancel
         </button>
@@ -161,18 +161,19 @@
 
 <script>
 import { mapActions } from "vuex";
+import clone from "lodash/clone";
 
 export default {
-  props: ["entry"],
   data() {
     return {
       show: false,
       busy: false,
-      model: {}
+      mode: "create",
+      model: null
     };
   },
   mounted() {
-    this.model = this.entry || this.modelSkeleton;
+    this.model = this.modelSkeleton;
   },
   computed: {
     modelSkeleton() {
@@ -189,16 +190,26 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["addEntry"]),
-    open() {
+    ...mapActions(["addEntry", "updateEntry"]),
+    open(entry = null) {
+      if (entry) {
+        this.model = clone(entry);
+        this.mode = "edit";
+      }
       this.show = true;
+    },
+    close() {
+      this.model = this.modelSkeleton;
+      this.show = false;
+      this.busy = false;
     },
     submit() {
       this.busy = true;
-      this.addEntry(this.model, 123).then(() => {
-        this.show = false;
-        this.busy = false;
-      });
+
+      (this.mode === "create"
+        ? this.addEntry(this.model)
+        : this.updateEntry(this.model)
+      ).then(() => this.close());
     }
   }
 };
