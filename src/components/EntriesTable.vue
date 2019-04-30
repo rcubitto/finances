@@ -24,9 +24,7 @@
           class="text-grey-darkest"
           :class="{ 'bg-grey-lighter': index % 2 === 1 }"
         >
-          <td class="p-4">
-            {{ entry.description }}
-          </td>
+          <td class="p-4">{{ entry.description }}</td>
           <td class="text-right p-4">
             {{ convert(entry.amount, entry.currency).toUSD() }}
           </td>
