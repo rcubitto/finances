@@ -168,12 +168,12 @@ export default {
     return {
       show: false,
       busy: false,
-      mode: "create",
+      mode: null,
       model: null
     };
   },
   mounted() {
-    this.model = this.modelSkeleton;
+    this.prepareForCreate();
   },
   computed: {
     modelSkeleton() {
@@ -191,15 +191,22 @@ export default {
   },
   methods: {
     ...mapActions(["addEntry", "updateEntry"]),
+    prepareForCreate() {
+      this.mode = "create";
+      this.model = this.modelSkeleton;
+    },
+    prepareForEdit(entry) {
+      this.mode = "edit";
+      this.model = clone(entry);
+    },
     open(entry = null) {
       if (entry) {
-        this.model = clone(entry);
-        this.mode = "edit";
+        this.prepareForEdit(entry);
       }
       this.show = true;
     },
     close() {
-      this.model = this.modelSkeleton;
+      this.prepareForCreate();
       this.show = false;
       this.busy = false;
     },
