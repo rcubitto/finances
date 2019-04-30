@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import reject from "lodash/reject";
 
 import db from "@/lib/Database";
 
@@ -123,6 +124,18 @@ export default new Vuex.Store({
             ...state.entries,
             { _id: doc.id, ...entry }
           ]);
+        })
+        .catch(err => {
+          console.log("Error adding document: ", err);
+        });
+    },
+    deleteEntry({ state, commit }, entry) {
+      return db
+        .collection("entries")
+        .doc(entry._id)
+        .delete()
+        .then(_ => {
+          commit("updateEntries", reject(state.entries, ["_id", entry._id]));
         })
         .catch(err => {
           console.log("Error adding document: ", err);

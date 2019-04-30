@@ -14,6 +14,7 @@
           <th class="text-right p-4">
             AR$
           </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +33,29 @@
           <td class="text-right p-4">
             {{ convert(entry.amount, entry.currency).toARS() }}
           </td>
+          <td>
+            <button
+              @click="deleteEntry(entry)"
+              class="w-5 flex justify-center items-center focus:outline-none"
+              :class="deleting == entry._id ? 'spinner' : ''"
+            >
+              <svg
+                v-if="deleting !== entry._id"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="w-5"
+              >
+                <path
+                  class="text-red-light fill-current"
+                  d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
+                />
+                <path
+                  class="text-red-dark fill-current"
+                  d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
+                />
+              </svg>
+            </button>
+          </td>
         </tr>
         <tr class="text-grey-darkest font-bold bg-grey-light">
           <td class="text-left p-4">
@@ -43,6 +67,7 @@
           <td class="text-right p-4">
             {{ convert(entriesSum("ARS")).get() }}
           </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
@@ -71,6 +96,9 @@ export default {
       default: null
     }
   },
+  data: () => ({
+    deleting: null
+  }),
   computed: {
     css() {
       return `rounded overflow-hidden shadow ${this.extraCss || ""}`.trim();
@@ -86,6 +114,10 @@ export default {
             .toCurrency(currency)
         )
         .reduce((carry, entry) => carry + entry, 0);
+    },
+    deleteEntry(entry) {
+      this.deleting = entry._id;
+      this.$emit("deleteEntry", entry);
     }
   }
 };
