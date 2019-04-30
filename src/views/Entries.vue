@@ -1,7 +1,13 @@
 <template>
   <div class="container mx-auto">
     <div class="my-6">
-      <EntryModal />
+      <button
+        class="bg-indigo hover:bg-indigo-light text-white uppercase text-xs pb-2 pt-3 px-4 border-b-4 border-indigo-dark hover:border-indigo rounded"
+        @click="$refs.modal.open()"
+      >
+        New Entry
+      </button>
+      <EntryModal ref="modal" />
     </div>
     <div class="flex">
       <div class="flex-1 mr-10">
