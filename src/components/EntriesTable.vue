@@ -47,7 +47,10 @@
             </button>
           </td>
         </tr>
-        <tr class="text-grey-darkest font-bold bg-grey-light">
+        <tr
+          v-if="entries.length > 0"
+          class="text-grey-darkest font-bold bg-grey-light"
+        >
           <td class="text-left p-4">
             Total
           </td>
