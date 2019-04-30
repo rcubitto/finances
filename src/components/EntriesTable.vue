@@ -62,10 +62,10 @@
             Total
           </td>
           <td class="text-right p-4">
-            {{ convert(entriesSum("USD")).get() }}
+            {{ totalInUSD }}
           </td>
           <td class="text-right p-4">
-            {{ convert(entriesSum("ARS")).get() }}
+            {{ totalInPesos }}
           </td>
           <td></td>
         </tr>
@@ -76,6 +76,8 @@
 
 <script>
 import convert from "@/lib/Converter";
+import money from "@/lib/Money";
+import _ from "lodash";
 
 export default {
   props: {
@@ -102,19 +104,32 @@ export default {
   computed: {
     css() {
       return `rounded overflow-hidden shadow ${this.extraCss || ""}`.trim();
+    },
+    totalInPesos() {
+      const amount = _(this.entries)
+        .map(entry =>
+          money(entry)
+            .exchangeToPesos()
+            .getCents()
+        )
+        .sum();
+
+      return money({ amount }).format();
+    },
+    totalInUSD() {
+      const amount = _(this.entries)
+        .map(entry =>
+          money(entry)
+            .exchangeToDollars()
+            .getCents()
+        )
+        .sum();
+
+      return money({ amount }).format();
     }
   },
   methods: {
     convert,
-    entriesSum(currency) {
-      return this.entries
-        .map(entry =>
-          convert(entry.amount, entry.currency)
-            .withoutFormat()
-            .toCurrency(currency)
-        )
-        .reduce((carry, entry) => carry + entry, 0);
-    },
     deleteEntry(entry) {
       this.deleting = entry._id;
       this.$emit("deleteEntry", entry);
