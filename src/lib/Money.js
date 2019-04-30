@@ -8,6 +8,7 @@ class Money {
 
   exchangeToPesos() {
     if (this.currency === "USD") {
+      this.currency = "ARS";
       this.cents = this.cents * store.state.exchange.value;
     }
 
@@ -16,6 +17,7 @@ class Money {
 
   exchangeToDollars() {
     if (this.currency === "ARS") {
+      this.currency = "USD";
       this.cents = this.cents / store.state.exchange.value;
     }
 
