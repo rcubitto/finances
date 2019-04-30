@@ -100,7 +100,7 @@
             id="amount"
             class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
             type="number"
-            v-model="model.amount"
+            v-model.number="model.amount"
           />
         </div>
         <div class="flex-1">
