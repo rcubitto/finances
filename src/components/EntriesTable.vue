@@ -38,10 +38,9 @@
             >
               <EditIcon color="blue" />
             </button>
-
             <button
-              @click="deleteEntry(entry)"
-              class="flex justify-center items-center focus:outline-none"
+              @click="setAndDelete(entry)"
+              class="flex justify-center items-center focus:outline-none w-5"
               :class="deleting == entry._id ? 'spinner' : ''"
             >
               <TrashIcon v-if="deleting !== entry._id" color="red" />
@@ -67,6 +66,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import convert from "@/lib/Converter";
 import money from "@/lib/Money";
 import _ from "lodash";
@@ -125,13 +125,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["deleteEntry"]),
     convert,
     editEntry(entry) {
       this.$refs.modal.open(entry);
     },
-    deleteEntry(entry) {
+    setAndDelete(entry) {
       this.deleting = entry._id;
-      this.$emit("deleteEntry", entry);
+      this.deleteEntry(entry);
     }
   }
 };

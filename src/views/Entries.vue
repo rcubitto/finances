@@ -14,7 +14,6 @@
         <EntriesTable
           :entries="entriesByRange('outcome', 'monthly')"
           range="monthly"
-          @deleteEntry="deleteEntry"
         />
       </div>
       <div class="flex-1 flex flex-col">
@@ -34,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import EntriesTable from "@/components/EntriesTable";
 import EntryModal from "@/components/EntryModal";
 
@@ -42,9 +41,6 @@ export default {
   components: { EntriesTable, EntryModal },
   computed: {
     ...mapGetters(["entriesByRange"])
-  },
-  methods: {
-    ...mapActions(["deleteEntry"])
   }
 };
 </script>
