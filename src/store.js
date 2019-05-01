@@ -153,28 +153,8 @@ export default new Vuex.Store({
           console.log("Error deleting document: ", err);
         });
     },
-    syncCategory({ state, commit }, category) {
-      commit("updateCategory", category);
-
-      const entries = state.entries.filter(
-        entry => !entry.detail.startsWith("Monotributo")
-      );
-
-      commit(
-        "updateEntries",
-        category.label !== null
-          ? [
-              ...entries,
-              {
-                type: "outcome",
-                range: "monthly",
-                detail: `Monotributo ${category.label}`,
-                price: category.total,
-                currency: "ARS"
-              }
-            ]
-          : entries
-      );
+    updateCategory({ commit }, category) {
+      return commit("updateCategory", category);
     }
   },
   strict: process.env.NODE_ENV !== "production"

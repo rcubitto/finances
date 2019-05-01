@@ -6,6 +6,7 @@ Vue.use(Router);
 import Balance from "./views/Balance";
 import Entries from "./views/Entries";
 import AFIP from "./views/AFIP";
+import Monotribute from "@/components/Monotribute";
 
 export default new Router({
   routes: [
@@ -20,8 +21,8 @@ export default new Router({
       component: Entries
     },
     {
-      path: "/afip",
-      name: "AFIP",
+      path: "/monotribute",
+      name: "Monotribute",
       component: AFIP
     }
   ]
