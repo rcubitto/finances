@@ -171,7 +171,7 @@ export default {
     ...mapActions(["addEntry", "updateEntry"]),
     prepareForCreate() {
       this.mode = "create";
-      this.model = this.modelSkeleton;
+      this.model = clone(this.modelSkeleton);
     },
     prepareForEdit(entry) {
       this.mode = "edit";
