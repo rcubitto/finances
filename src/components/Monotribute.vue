@@ -83,7 +83,7 @@
             <tbody>
               <tr class="">
                 <td
-                  class="bg-indigo-lighter text-white border-r-4 p-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
+                  class="bg-indigo-light text-white border-r-4 p-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
                 >
                   Annual
                 </td>
@@ -102,7 +102,7 @@
               </tr>
               <tr class="">
                 <td
-                  class="bg-indigo-lighter text-white border-r-4 p-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
+                  class="bg-indigo-light text-white border-r-4 p-4 text-grey-darker uppercase tracking-wide text-xs font-bold"
                 >
                   Monthly
                 </td>
