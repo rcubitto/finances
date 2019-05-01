@@ -64,7 +64,6 @@
         </tr>
       </tbody>
     </table>
-    <EntryModal ref="modal" />
   </div>
 </template>
 
@@ -73,12 +72,11 @@ import { mapActions } from "vuex";
 import convert from "@/lib/Converter";
 import money from "@/lib/Money";
 import _ from "lodash";
-import EntryModal from "@/components/EntryModal";
 import EditIcon from "@/components/EditIcon";
 import TrashIcon from "@/components/TrashIcon";
 
 export default {
-  components: { TrashIcon, EditIcon, EntryModal },
+  components: { TrashIcon, EditIcon },
   props: {
     entries: {
       type: Array,
@@ -131,7 +129,7 @@ export default {
     ...mapActions(["deleteEntry"]),
     convert,
     editEntry(entry) {
-      this.$refs.modal.open(entry);
+      this.$emit("editEntry", entry);
     },
     setAndDelete(entry) {
       this.deleting = entry._id;

@@ -7,28 +7,32 @@
       >
         New Entry
       </button>
-      <EntryModal ref="modal" />
     </div>
     <div class="flex">
       <div class="flex-1 mr-10">
         <EntriesTable
           :entries="entriesByRange('outcome', 'monthly')"
+          @editEntry="$refs.modal.open($event)"
           range="monthly"
         />
       </div>
       <div class="flex-1 flex flex-col">
         <EntriesTable
           :entries="entriesByRange('outcome', 'yearly')"
+          @editEntry="$refs.modal.open($event)"
           range="yearly"
           extra-css="mb-10"
         />
         <EntriesTable
           :entries="entriesByRange('income', 'yearly')"
+          @editEntry="$refs.modal.open($event)"
           range="yearly"
           color="indigo"
         />
       </div>
     </div>
+    <!-- Modal -->
+    <EntryModal ref="modal" />
   </div>
 </template>
 
