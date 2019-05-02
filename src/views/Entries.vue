@@ -27,6 +27,13 @@
           :entries="entriesByRange('income', 'yearly')"
           @editEntry="$refs.modal.open($event)"
           range="yearly"
+          extra-css="mb-10"
+          color="indigo"
+        />
+        <EntriesTable
+          :entries="entriesByRange('income', 'monthly')"
+          @editEntry="$refs.modal.open($event)"
+          range="monthly"
           color="indigo"
         />
       </div>
