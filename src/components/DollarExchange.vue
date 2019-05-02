@@ -1,31 +1,25 @@
 <template>
-  <div>
-    <label
-      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-      for="exchange"
-    >
-      ARS/USD
-    </label>
-    <div class="relative">
+  <div class="flex">
+    <div class="flex">
       <div
-        class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker"
+        class="pointer-events-none flex items-center px-2 z-10 text-grey-darker"
       >
         <DollarIcon size="6" />
       </div>
       <input
         id="exchange"
         v-model.number="exchange"
-        class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-        :class="{ 'border-red': exchangeHasErrors && !exchange }"
-        type="number"
+        class="appearance-none bg-grey-lighter -ml-10 text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+        :class="{
+          'bg-red-lighter border-red-light': exchangeHasErrors && !exchange
+        }"
       />
     </div>
-    <p
-      v-if="exchangeHasErrors && !exchange"
-      class="text-red text-xs italic mt-1"
+    <div
+      class="pointer-events-none flex items-center px-2 text-white text-sm uppercase font-bold"
     >
-      An error has occurred, please fill this field manually.
-    </p>
+      ARS/USD
+    </div>
   </div>
 </template>
 <script>

@@ -1,8 +1,5 @@
 <template>
-  <div class="mt-6 flex">
-    <div class="flex-1 mr-6">
-      <DollarExchange />
-    </div>
+  <div class="mt-6 flex w-2/3">
     <div class="flex-1 mr-6">
       <label
         class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -90,7 +87,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     document.addEventListener("keyup", e => {
       switch (e.key) {
         case "/":
