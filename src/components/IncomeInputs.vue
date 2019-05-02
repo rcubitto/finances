@@ -57,10 +57,9 @@
 
 <script>
 import DollarIcon from "@/components/DollarIcon";
-import DollarExchange from "@/components/DollarExchange";
 
 export default {
-  components: { DollarExchange, DollarIcon },
+  components: { DollarIcon },
   computed: {
     income: {
       get() {
