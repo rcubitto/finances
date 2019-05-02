@@ -1,32 +1,7 @@
 <template>
   <div class="mt-6 flex">
     <div class="flex-1 mr-6">
-      <label
-        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-        for="exchange"
-      >
-        ARS/USD
-      </label>
-      <div class="relative">
-        <div
-          class="pointer-events-none absolute pin-y pin-l flex items-center px-2 text-grey-darker"
-        >
-          <DollarIcon size="6" />
-        </div>
-        <input
-          id="exchange"
-          v-model.number="exchange"
-          class="appearance-none block w-full bg-grey-lighter text-grey-darkest border border-grey-lighter rounded py-3 pl-8 pr-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          :class="{ 'border-red': exchangeHasErrors && !exchange }"
-          type="number"
-        />
-      </div>
-      <p
-        v-if="exchangeHasErrors && !exchange"
-        class="text-red text-xs italic mt-1"
-      >
-        An error has occurred, please fill this field manually.
-      </p>
+      <DollarExchange />
     </div>
     <div class="flex-1 mr-6">
       <label
@@ -84,20 +59,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import DollarIcon from "@/components/DollarIcon";
+import DollarExchange from "@/components/DollarExchange";
 
 export default {
-  components: { DollarIcon },
+  components: { DollarExchange, DollarIcon },
   computed: {
-    exchange: {
-      get() {
-        return this.$store.state.exchange.value;
-      },
-      set(value) {
-        this.$store.commit("updateExchange", value);
-      }
-    },
     income: {
       get() {
         return this.$store.state.income.value;
@@ -121,10 +88,7 @@ export default {
       set(value) {
         this.$store.commit("updateIncomeMargin", value);
       }
-    },
-    ...mapState({
-      exchangeHasErrors: state => state.exchange.errors
-    })
+    }
   },
   created() {
     document.addEventListener("keyup", e => {
@@ -146,9 +110,6 @@ export default {
           break;
       }
     });
-  },
-  methods: {
-    ...mapActions(["fetchExchange"])
   }
 };
 </script>
