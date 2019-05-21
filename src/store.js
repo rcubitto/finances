@@ -26,8 +26,11 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    entries: state => type => {
-      return state.entries.filter(entry => entry.type === type);
+    entries: state => filters => {
+      return _(state.entries)
+        .filter(filters)
+        .sortBy("type") // 'income' first
+        .value();
     },
     entriesByRange: (state, getters) => (type, range) => {
       return getters.entries(type).filter(entry => entry.range === range);
