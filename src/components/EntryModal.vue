@@ -132,8 +132,7 @@ export default {
         currency: null,
         description: null,
         amount: null,
-        plan: null,
-        type: null
+        plan: null
       };
     },
     allFieldsCompleted() {
