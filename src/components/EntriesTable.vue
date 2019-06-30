@@ -76,6 +76,7 @@ import { mapActions } from "vuex";
 import convert from "@/lib/Converter";
 import money from "@/lib/Money";
 import _ from "lodash";
+import Swal from "sweetalert2";
 import EditIcon from "@/components/EditIcon";
 import TrashIcon from "@/components/TrashIcon";
 
@@ -128,8 +129,19 @@ export default {
       this.$emit("editEntry", entry);
     },
     setAndDelete(entry) {
-      this.deleting = entry._id;
-      this.deleteEntry(entry);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "The entry will be deleted forever.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#ef5753",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.deleting = entry._id;
+          this.deleteEntry(entry);
+        }
+      });
     }
   }
 };
