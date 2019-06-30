@@ -7,7 +7,7 @@
       <h3
         class="text-grey-darker font-normal border-grey-light border-b mb-5 pb-5"
       >
-        New Entry
+        {{ this.mode === "create" ? "New" : "Edit " }} Entry
       </h3>
       <!-- Plan -->
       <label
