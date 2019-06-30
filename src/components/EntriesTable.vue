@@ -4,7 +4,7 @@
       <tr
         class="bg-grey-dark border-b-4 border-grey-darker uppercase text-white tracking-wide text-xs font-bold"
       >
-        <th class="text-left p-4">{{ range }}</th>
+        <th class="text-left p-4">{{ plan }}</th>
         <th class="text-right p-4">
           U$S
         </th>
@@ -24,18 +24,16 @@
         <td class="p-4">{{ entry.description }}</td>
         <td class="text-right p-4">
           {{
-            (entry.type === "outcome" ? "–" : "") +
-              money(entry)
-                .exchangeToDollars()
-                .format()
+            money(entry)
+              .exchangeToDollars()
+              .format()
           }}
         </td>
         <td class="text-right p-4">
           {{
-            (entry.type === "outcome" ? "–" : "") +
-              money(entry)
-                .exchangeToPesos()
-                .format()
+            money(entry)
+              .exchangeToPesos()
+              .format()
           }}
         </td>
         <td class="flex justify-center items-center p-4">
@@ -88,7 +86,7 @@ export default {
       type: Array,
       required: true
     },
-    range: {
+    plan: {
       type: String,
       required: true
     }

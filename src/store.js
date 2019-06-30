@@ -30,39 +30,8 @@ export default new Vuex.Store({
     entries: state => filters => {
       return _(state.entries)
         .filter(filters)
-        .sortBy("type") // 'income' first
+        .sortBy([entry => entry.amount < 0]) // 'income' first
         .value();
-    },
-    entriesByRange: (state, getters) => (type, range) => {
-      return getters.entries(type).filter(entry => entry.range === range);
-    },
-    entriesByRangeToUSD: (state, getters) => (type, range) => {
-      return getters
-        .entriesByRange(type, range)
-        .map(entry =>
-          entry.currency === "USD"
-            ? entry.price
-            : entry.price / state.exchange.value
-        );
-    },
-    entriesByRangeToARS: (state, getters) => (type, range) => {
-      return getters
-        .entriesByRange(type, range)
-        .map(entry =>
-          entry.currency === "ARS"
-            ? entry.price
-            : entry.price * state.exchange.value
-        );
-    },
-    entriesByRangeAndCurrencySum: (state, getters) => (
-      type,
-      range,
-      currency
-    ) => {
-      return (currency === "ARS"
-        ? getters.entriesByRangeToARS(type, range)
-        : getters.entriesByRangeToUSD(type, range)
-      ).reduce((carry, price) => carry + price, 0);
     }
   },
   mutations: {

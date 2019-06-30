@@ -9,53 +9,26 @@
       >
         New Entry
       </h3>
-      <!-- Type & Range -->
-      <div class="flex mt-8">
-        <div class="flex-1 mr-4">
-          <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-            for="type"
-          >
-            Type
-          </label>
-          <div class="relative">
-            <select
-              class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
-              id="type"
-              v-model="model.type"
-            >
-              <option value="income">Income</option>
-              <option value="outcome">Outcome</option>
-            </select>
-            <div
-              class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
-            >
-              <CarretDown />
-            </div>
-          </div>
-        </div>
-        <div class="flex-1">
-          <label
-            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-            for="range"
-          >
-            Range
-          </label>
-          <div class="relative">
-            <select
-              class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
-              id="range"
-              v-model="model.range"
-            >
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-            </select>
-            <div
-              class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
-            >
-              <CarretDown />
-            </div>
-          </div>
+      <!-- Plan -->
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+        for="plan"
+      >
+        Plan
+      </label>
+      <div class="relative">
+        <select
+          class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey"
+          id="plan"
+          v-model="model.plan"
+        >
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+        <div
+          class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+        >
+          <CarretDown />
         </div>
       </div>
       <!-- Description -->
@@ -159,7 +132,7 @@ export default {
         currency: null,
         description: null,
         amount: null,
-        range: null,
+        plan: null,
         type: null
       };
     },
