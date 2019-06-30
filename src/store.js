@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import _ from "lodash";
+import Swal from "sweetalert2";
 
 import db from "@/lib/Database";
 
@@ -108,8 +109,12 @@ export default new Vuex.Store({
             }))
           );
         })
-        .catch(err => {
-          console.log("Error getting documents", err);
+        .catch(() => {
+          Swal.fire({
+            title: "Whoops!",
+            text: "Error getting documents",
+            type: "Error "
+          });
         });
     },
 
@@ -123,8 +128,12 @@ export default new Vuex.Store({
             { _id: doc.id, ...entry }
           ]);
         })
-        .catch(err => {
-          console.log("Error adding document: ", err);
+        .catch(() => {
+          Swal.fire({
+            title: "Whoops!",
+            text: "Error adding document",
+            type: "Error "
+          });
         });
     },
 
@@ -139,8 +148,12 @@ export default new Vuex.Store({
           updatedEntries[index] = entry;
           commit("updateEntries", updatedEntries);
         })
-        .catch(err => {
-          console.log("Error updating document: ", err);
+        .catch(() => {
+          Swal.fire({
+            title: "Whoops!",
+            text: "Error updating documents",
+            type: "Error "
+          });
         });
     },
 
@@ -152,8 +165,12 @@ export default new Vuex.Store({
         .then(() => {
           commit("updateEntries", _.reject(state.entries, ["_id", entry._id]));
         })
-        .catch(err => {
-          console.log("Error deleting document: ", err);
+        .catch(() => {
+          Swal.fire({
+            title: "Whoops!",
+            text: "Error deleting documents",
+            type: "Error "
+          });
         });
     },
     updateCategory({ commit }, category) {
