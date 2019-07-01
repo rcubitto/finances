@@ -21,7 +21,16 @@
         class="text-grey-darkest"
         :class="{ 'bg-grey-lighter': index % 2 === 1 }"
       >
-        <td class="p-4">{{ entry.description }}</td>
+        <td class="p-4">
+          <span :class="(entry.tags || []).length > 0 ? 'mr-2' : ''">{{
+            entry.description
+          }}</span>
+          <span
+            v-for="tag in entry.tags || []"
+            class="bg-yellow-dark py-1 px-2 rounded-full mr-2"
+            >{{ tag }}</span
+          >
+        </td>
         <td class="text-right p-4">
           {{
             money(entry)

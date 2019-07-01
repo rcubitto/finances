@@ -84,6 +84,12 @@
           </div>
         </div>
       </div>
+      <!-- Tags -->
+      <label
+        class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-8"
+        >Tags</label
+      >
+      <tags v-model="model.tags"></tags>
       <!-- Submit -->
       <div class="flex mt-8">
         <button
@@ -112,9 +118,10 @@
 import { mapActions } from "vuex";
 import clone from "lodash/clone";
 import CarretDown from "@/components/CarretDown";
+import Tags from "@/components/Tags";
 
 export default {
-  components: { CarretDown },
+  components: { CarretDown, Tags },
   data() {
     return {
       show: false,
@@ -132,7 +139,8 @@ export default {
         currency: null,
         description: null,
         amount: null,
-        plan: null
+        plan: null,
+        tags: []
       };
     },
     allFieldsCompleted() {
