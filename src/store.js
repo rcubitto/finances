@@ -27,10 +27,24 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    entries: state => filters => {
+    entries: state => (filters, tagsToFilter = []) => {
       return _(state.entries)
         .filter(filters)
+        .filter(
+          entry =>
+            tagsToFilter.length === 0 || // if no tags selected, skip
+            _.intersection(entry.tags, tagsToFilter).length ===
+              tagsToFilter.length
+        )
         .sortBy([entry => entry.amount < 0]) // 'income' first
+        .value();
+    },
+    tags: state => {
+      return _(state.entries)
+        .map(entry => entry.tags)
+        .flatten()
+        .uniq()
+        .filter()
         .value();
     }
   },
