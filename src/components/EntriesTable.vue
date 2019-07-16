@@ -5,12 +5,8 @@
         class="bg-grey-dark border-b-4 border-grey-darker uppercase text-white tracking-wide text-xs font-bold"
       >
         <th class="text-left p-4">{{ plan }}</th>
-        <th class="text-right p-4">
-          U$S
-        </th>
-        <th class="text-right p-4">
-          AR$
-        </th>
+        <th class="text-right p-4">U$S</th>
+        <th class="text-right p-4">AR$</th>
         <th></th>
       </tr>
     </thead>
@@ -22,27 +18,29 @@
         :class="{ 'bg-grey-lighter': index % 2 === 1 }"
       >
         <td class="p-4">
-          <span :class="(entry.tags || []).length > 0 ? 'mr-2' : ''">{{
+          <span :class="(entry.tags || []).length > 0 ? 'mr-2' : ''">
+            {{
             entry.description
-          }}</span>
+            }}
+          </span>
           <span
-            v-for="tag in entry.tags || []"
-            class="bg-yellow-dark py-1 px-2 rounded-full mr-2"
-            >{{ tag }}</span
-          >
+            v-for="(tag, index) in entry.tags || []"
+            :key="index"
+            class="bg-yellow-dark py-1 px-2 rounded-full mr-2 text-xs"
+          >{{ tag }}</span>
         </td>
         <td class="text-right p-4">
           {{
-            money(entry)
-              .exchangeToDollars()
-              .format()
+          money(entry)
+          .exchangeToDollars()
+          .format()
           }}
         </td>
         <td class="text-right p-4">
           {{
-            money(entry)
-              .exchangeToPesos()
-              .format()
+          money(entry)
+          .exchangeToPesos()
+          .format()
           }}
         </td>
         <td class="flex justify-center items-center p-4">
@@ -61,19 +59,10 @@
           </button>
         </td>
       </tr>
-      <tr
-        v-if="entries.length > 0"
-        class="text-grey-darkest font-bold bg-grey-light"
-      >
-        <td class="text-left p-4">
-          Total
-        </td>
-        <td class="text-right p-4">
-          {{ totalInUSD }}
-        </td>
-        <td class="text-right p-4">
-          {{ totalInPesos }}
-        </td>
+      <tr v-if="entries.length > 0" class="text-grey-darkest font-bold bg-grey-light">
+        <td class="text-left p-4">Total</td>
+        <td class="text-right p-4">{{ totalInUSD }}</td>
+        <td class="text-right p-4">{{ totalInPesos }}</td>
         <td></td>
       </tr>
     </tbody>
