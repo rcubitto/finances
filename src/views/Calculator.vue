@@ -125,7 +125,7 @@ export default {
       exchange: state => state.exchange.value
     }),
     payPalFee() {
-      return (this.amount * this.payPal.percentage) / 100 - this.payPal.fixed;
+      return (this.amount * this.payPal.percentage) / 100 + this.payPal.fixed;
     },
     payPalCredit() {
       return this.amount - this.payPalFee;
