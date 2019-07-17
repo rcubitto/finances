@@ -19,12 +19,7 @@ export default new Vuex.Store({
       value: null,
       errors: false
     },
-    entries: [],
-    category: {
-      label: null,
-      income: 0,
-      total: 0
-    }
+    entries: []
   },
   getters: {
     entries: state => (filters, tagsToFilter = []) => {
@@ -66,9 +61,6 @@ export default new Vuex.Store({
     },
     updateEntries(state, value) {
       state.entries = value;
-    },
-    updateCategory(state, value) {
-      state.category = value;
     }
   },
   actions: {
@@ -155,9 +147,6 @@ export default new Vuex.Store({
             type: "Error "
           });
         });
-    },
-    updateCategory({ commit }, category) {
-      return commit("updateCategory", category);
     }
   },
   strict: process.env.NODE_ENV !== "production"
