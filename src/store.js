@@ -52,10 +52,11 @@ export default new Vuex.Store({
   actions: {
     // Make an API call to get the current exchange value from U$S to AR$ (Argentinean peso)
     fetchExchange({ commit }) {
-      axios
-        .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")
-        .then(({ data: { libre } }) => commit("updateExchange", Number(libre)))
-        .catch(() => commit("flagExchangeErrors"));
+      // axios.get("...")
+      // .then(({ data: { rates: { USDARS: { rate } } } }) =>
+      commit("updateExchange", Number(42.55));
+      // )
+      // .catch(() => commit("flagExchangeErrors"));
     },
     // Fetch all entries from firestore DB
     fetchEntries({ commit }) {
