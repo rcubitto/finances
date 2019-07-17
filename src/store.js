@@ -10,11 +10,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    income: {
-      value: null,
-      range: "monthly",
-      margin: "gross"
-    },
     exchange: {
       value: null,
       errors: false
@@ -50,21 +45,12 @@ export default new Vuex.Store({
     flagExchangeErrors(state) {
       state.exchange.errors = true;
     },
-    updateIncomeValue(state, value) {
-      state.income.value = value || null;
-    },
-    updateIncomeRange(state, value) {
-      state.income.range = value;
-    },
-    updateIncomeMargin(state, value) {
-      state.income.margin = value;
-    },
     updateEntries(state, value) {
       state.entries = value;
     }
   },
   actions: {
-    // Make an API call to get the current exchange value from U$S to AR$
+    // Make an API call to get the current exchange value from U$S to AR$ (Argentinean peso)
     fetchExchange({ commit }) {
       axios
         .get("http://ws.geeklab.com.ar/dolar/get-dolar-json.php")

@@ -3,7 +3,7 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-import Balance from "./views/Balance";
+import Calculator from "./views/Calculator";
 import Entries from "./views/Entries";
 import Monotribute from "./views/Monotribute";
 
@@ -16,8 +16,8 @@ export default new Router({
     },
     {
       path: "/calculator",
-      name: "Balance",
-      component: Balance
+      name: "Calculator",
+      component: Calculator
     },
     {
       path: "/monotribute",
