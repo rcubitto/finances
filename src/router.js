@@ -5,24 +5,24 @@ Vue.use(Router);
 
 import Balance from "./views/Balance";
 import Entries from "./views/Entries";
-import AFIP from "./views/AFIP";
+import Monotribute from "./views/Monotribute";
 
 export default new Router({
   routes: [
     {
       path: "/",
-      name: "Balance",
-      component: Balance
-    },
-    {
-      path: "/entries",
       name: "Entries",
       component: Entries
     },
     {
+      path: "/calculator",
+      name: "Balance",
+      component: Balance
+    },
+    {
       path: "/monotribute",
       name: "Monotribute",
-      component: AFIP
+      component: Monotribute
     }
   ]
 });
