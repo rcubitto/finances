@@ -18,28 +18,25 @@
         :class="{ 'bg-gray-200': index % 2 === 1 }"
       >
         <td class="p-4">
-          <span :class="(entry.tags || []).length > 0 ? 'mr-2' : ''">
-            {{ entry.description }}
-          </span>
+          <span :class="(entry.tags || []).length > 0 ? 'mr-2' : ''">{{ entry.description }}</span>
           <span
             v-for="(tag, index) in entry.tags || []"
             :key="index"
             class="bg-yellow-500 py-1 px-2 rounded-full mr-2 text-xs"
-            >{{ tag }}</span
-          >
+          >{{ tag }}</span>
         </td>
         <td class="text-right p-4">
           {{
-            money(entry)
-              .exchangeToDollars()
-              .format()
+          money(entry)
+          .exchangeToDollars()
+          .format()
           }}
         </td>
         <td class="text-right p-4">
           {{
-            money(entry)
-              .exchangeToPesos()
-              .format()
+          money(entry)
+          .exchangeToPesos()
+          .format()
           }}
         </td>
         <td class="flex justify-center items-center p-4">

@@ -1,6 +1,6 @@
-# finances
+# Finances
 
-> Personal project to track my finances
+> Personal project to manage my finances
 
 ## Build Setup
 
