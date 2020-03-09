@@ -1,7 +1,6 @@
 // import axios from "axios";
 import _ from "lodash";
 import Swal from "sweetalert2";
-import db from "@/lib/Database";
 
 export const state = () => ({
   exchange: {
@@ -47,17 +46,9 @@ export const mutations = {
 };
 
 export const actions = {
-  // Make an API call to get the current exchange value from U$S to AR$ (Argentinean peso)
-  fetchExchange({ commit }) {
-    // axios.get("...")
-    // .then(({ data: { rates: { USDARS: { rate } } } }) =>
-    commit("updateExchange", Number(42.55));
-    // )
-    // .catch(() => commit("flagExchangeErrors"));
-  },
-  // Fetch all entries from firestore DB
   fetchEntries({ commit }) {
-    db.collection("entries")
+    this.$fireStore
+      .collection("entries")
       .get()
       .then(snapshot => {
         commit(
@@ -69,32 +60,25 @@ export const actions = {
         );
       })
       .catch(() => {
-        Swal.fire({
-          title: "Whoops!",
-          text: "Error getting documents",
-          type: "Error "
-        });
+        Swal.fire("Whoops!", "Error getting documents", "error");
       });
   },
 
   addEntry({ state, commit }, entry) {
-    return db
+    return this.$fireStore
       .collection("entries")
       .add(entry)
       .then(doc => {
         commit("updateEntries", [...state.entries, { _id: doc.id, ...entry }]);
+        Swal.fire("Hooray!", "Entry added successfully", "success");
       })
       .catch(() => {
-        Swal.fire({
-          title: "Whoops!",
-          text: "Error adding document",
-          type: "Error "
-        });
+        Swal.fire("Whoops!", "Error adding document", "error");
       });
   },
 
   updateEntry({ state, commit }, entry) {
-    return db
+    return this.$fireStore
       .collection("entries")
       .doc(entry._id)
       .update(_.omit(entry, "_id"))
@@ -105,28 +89,21 @@ export const actions = {
         commit("updateEntries", updatedEntries);
       })
       .catch(() => {
-        Swal.fire({
-          title: "Whoops!",
-          text: "Error updating documents",
-          type: "Error "
-        });
+        Swal.fire("Whoops!", "Error updating documents", "error");
       });
   },
 
   deleteEntry({ state, commit }, entry) {
-    return db
+    return this.$fireStore
       .collection("entries")
       .doc(entry._id)
       .delete()
       .then(() => {
         commit("updateEntries", _.reject(state.entries, ["_id", entry._id]));
+        Swal.fire("Hooray!", "Entry deleted successfully", "success");
       })
       .catch(() => {
-        Swal.fire({
-          title: "Whoops!",
-          text: "Error deleting documents",
-          type: "Error "
-        });
+        Swal.fire("Whoops!", "Error deleting documents", "error");
       });
   }
 };

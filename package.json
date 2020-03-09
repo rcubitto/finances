@@ -1,7 +1,7 @@
 {
-  "name": "finances",
+  "name": "Finances",
   "version": "1.0.0",
-  "description": "Personal project to track my finances",
+  "description": "Personal project to manage my finances",
   "author": "Raúl Cubitto",
   "private": true,
   "scripts": {
@@ -11,8 +11,13 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/firebase": "^4.1.0",
+    "core-js": "^2.6.10",
+    "firebase": "^7.10.0",
     "nuxt": "^2.0.0",
-    "@nuxtjs/dotenv": "^1.4.0"
+    "sweetalert2": "^9.9.0",
+    "tailwindcss-spinner": "^1.0.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0"
