@@ -1,58 +1,20 @@
 {
   "name": "finances",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Personal project to track my finances",
+  "author": "Raúl Cubitto",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "firebase": "^5.8.3",
-    "lodash": "^4.17.11",
-    "sweetalert2": "^8.13.0",
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "nuxt": "^2.0.0",
+    "@nuxtjs/dotenv": "^1.4.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-eslint": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "tailwindcss": "^0.7.3",
-    "tailwindcss-spinner": "^0.2.0",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "plugin:prettier/recommended",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": "./tailwind.js",
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "@nuxtjs/tailwindcss": "^1.0.0"
+  }
 }
